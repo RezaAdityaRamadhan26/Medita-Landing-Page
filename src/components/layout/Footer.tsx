@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { mockGlobal } from "@/data/mock";
+import prisma from "@/lib/prisma";
 
 function SocialIcon({ platform }: { platform: string }) {
   switch (platform) {
@@ -35,8 +36,18 @@ function SocialIcon({ platform }: { platform: string }) {
   }
 }
 
-export default function Footer() {
-  const { footer_tagline, social_links } = mockGlobal;
+export default async function Footer() {
+  const settingsList = await prisma.setting.findMany();
+  const settings = settingsList.reduce((acc, curr) => {
+    acc[curr.key] = curr.value;
+    return acc;
+  }, {} as Record<string, string>);
+
+  const footer_tagline = settings.footer_tagline || mockGlobal.footer_tagline;
+  const copyright_text = settings.copyright_text || mockGlobal.copyright_text;
+  const site_name = settings.site_name || mockGlobal.site_name;
+  
+  const { social_links } = mockGlobal;
 
   const footerLinks = {
     company: [
@@ -93,7 +104,7 @@ export default function Footer() {
           {/* Company Links */}
           <div>
             <h4 className="font-semibold text-base mb-4">
-              Medita Solusi Digital
+              {site_name}
             </h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
@@ -125,6 +136,13 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+        </div>
+        
+        {/* Copyright Bar */}
+        <div className="mt-12 pt-8 border-t border-gray-800 text-center">
+          <p className="text-gray-400 text-sm">
+            {copyright_text}
+          </p>
         </div>
       </div>
     </footer>

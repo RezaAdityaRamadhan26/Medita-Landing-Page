@@ -7,6 +7,8 @@ import InsightfulArticles from "@/components/sections/InsightfulArticles";
 import ContactForm from "@/components/sections/ContactForm";
 import prisma from "@/lib/prisma";
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const settingsList = await prisma.setting.findMany();
   const settings = settingsList.reduce((acc, curr) => {

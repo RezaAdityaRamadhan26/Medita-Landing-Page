@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { mockGlobal } from "@/data/mock";
 
-export default function Navbar() {
+export default function Navbar({ siteName = "Medita Solusi Digital" }: { siteName?: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { nav_links } = mockGlobal;
 
@@ -17,7 +17,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image 
             src="/logo-header.svg" 
-            alt="Medita Solusi Digital" 
+            alt={siteName} 
             width={140} 
             height={40} 
             priority
