@@ -27,13 +27,13 @@ async function main() {
     for (const article of mockArticles) {
       await prisma.article.create({
         data: {
-          title: article.title,
-          slug: article.slug,
-          coverImage: article.cover_image,
-          category: article.category,
-          readTime: article.read_time,
-          content: article.content,
-          excerpt: article.excerpt,
+          title: article.title || "",
+          slug: article.slug || "",
+          coverImage: article.cover_image || "",
+          category: article.category || "",
+          readTime: article.read_time || "",
+          content: article.content || "",
+          excerpt: article.excerpt || "",
           // Convert string to Date. mock data uses "2024-04-16" format
           publishedAt: new Date(article.publishedAt || new Date()),
         },
@@ -48,12 +48,12 @@ async function main() {
     for (const cs of mockCaseStudies) {
       await prisma.caseStudy.create({
         data: {
-          title: cs.title,
-          slug: cs.slug,
-          categoryTag: cs.category_tag,
-          summary: cs.summary,
-          thumbnail: cs.thumbnail,
-          link: cs.link,
+          title: cs.title || "",
+          slug: cs.slug || "",
+          categoryTag: cs.category_tag || "",
+          summary: cs.summary || "",
+          thumbnail: cs.thumbnail || "",
+          link: cs.link || "",
         },
       });
     }
@@ -66,11 +66,11 @@ async function main() {
     for (const t of mockTestimonials) {
       await prisma.testimonial.create({
         data: {
-          clientName: t.client_name,
-          role: t.role,
-          avatar: t.avatar,
-          rating: t.rating,
-          quote: t.quote,
+          clientName: t.client_name || "",
+          role: t.role || "",
+          avatar: t.avatar || "",
+          rating: t.rating || 5,
+          quote: t.quote || "",
         }
       });
     }
@@ -83,11 +83,11 @@ async function main() {
     for (const s of mockLandingPage.service_cards) {
       await prisma.service.create({
         data: {
-          image: s.image,
-          title: s.title,
-          description: s.description,
-          link: s.link,
-          color: s.color,
+          image: s.image || "",
+          title: s.title || "",
+          description: s.description || "",
+          link: s.link || "",
+          color: s.color || "",
         }
       });
     }
@@ -100,9 +100,9 @@ async function main() {
     for (const f of mockLandingPage.feature_list) {
       await prisma.feature.create({
         data: {
-          icon: f.icon,
-          title: f.title,
-          description: f.description,
+          icon: f.icon || "",
+          title: f.title || "",
+          description: f.description || "",
         }
       });
     }
@@ -114,22 +114,22 @@ async function main() {
   if (settingCount === 0) {
     const settingsToCreate = [
       { key: "site_name", value: mockGlobal.site_name },
-      { key: "hero_badge_text", value: mockLandingPage.hero_badge_text },
-      { key: "hero_heading_title", value: mockLandingPage.hero_heading_title },
-      { key: "hero_description", value: mockLandingPage.hero_description },
-      { key: "cta_button_text", value: mockLandingPage.cta_button_text },
-      { key: "about_title", value: mockLandingPage.about_title },
-      { key: "about_description", value: mockLandingPage.about_description },
-      { key: "service_title", value: mockLandingPage.service_title },
-      { key: "service_description", value: mockLandingPage.service_description },
-      { key: "form_title", value: mockLandingPage.form_title },
-      { key: "form_subtitle", value: mockLandingPage.form_subtitle },
-      { key: "form_button_text", value: mockLandingPage.form_button_text },
-      { key: "cta_banner_title", value: mockGlobal.cta_banner_title },
-      { key: "cta_banner_description", value: mockGlobal.cta_banner_description },
-      { key: "cta_banner_button_text", value: mockGlobal.cta_banner_button_text },
-      { key: "footer_tagline", value: mockGlobal.footer_tagline },
-      { key: "copyright_text", value: mockGlobal.copyright_text },
+      { key: "hero_badge_text", value: mockLandingPage.hero_badge_text || "" },
+      { key: "hero_heading_title", value: mockLandingPage.hero_heading_title || "" },
+      { key: "hero_description", value: mockLandingPage.hero_description || "" },
+      { key: "cta_button_text", value: mockLandingPage.cta_button_text || "" },
+      { key: "about_title", value: mockLandingPage.about_title || "" },
+      { key: "about_description", value: mockLandingPage.about_description || "" },
+      { key: "service_title", value: mockLandingPage.service_title || "" },
+      { key: "service_description", value: mockLandingPage.service_description || "" },
+      { key: "form_title", value: mockLandingPage.form_title || "" },
+      { key: "form_subtitle", value: mockLandingPage.form_subtitle || "" },
+      { key: "form_button_text", value: mockLandingPage.form_button_text || "" },
+      { key: "cta_banner_title", value: mockGlobal.cta_banner_title || "" },
+      { key: "cta_banner_description", value: mockGlobal.cta_banner_description || "" },
+      { key: "cta_banner_button_text", value: mockGlobal.cta_banner_button_text || "" },
+      { key: "footer_tagline", value: mockGlobal.footer_tagline || "" },
+      { key: "copyright_text", value: mockGlobal.copyright_text || "" },
     ];
     for (const setting of settingsToCreate) {
       await prisma.setting.create({ data: setting });
