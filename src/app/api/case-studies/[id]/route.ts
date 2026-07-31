@@ -1,10 +1,11 @@
 import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const caseStudy = await prisma.caseStudy.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(resolvedParams.id) },
     });
     if (!caseStudy) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(caseStudy);
@@ -13,11 +14,12 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const body = await req.json();
     const caseStudy = await prisma.caseStudy.update({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(resolvedParams.id) },
       data: {
         title: body.title,
         slug: body.slug,
@@ -33,10 +35,11 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     await prisma.caseStudy.delete({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(resolvedParams.id) },
     });
     return NextResponse.json({ success: true });
   } catch (error) {
