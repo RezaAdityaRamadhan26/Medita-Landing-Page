@@ -1,12 +1,25 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import ArticleCard from "@/components/cards/ArticleCard";
-import { mockArticles } from "@/data/mock";
+import prisma from "@/lib/prisma";
 
-export default function InsightfulArticles() {
-  const displayedArticles = mockArticles.slice(0, 3);
+export default async function InsightfulArticles() {
+  const dbArticles = await prisma.article.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 3,
+  });
+
+  // Map to the shape ArticleCard expects
+  const displayedArticles = dbArticles.map(a => ({
+    id: a.id,
+    title: a.title,
+    slug: a.slug,
+    cover_image: a.coverImage || "",
+    category: a.category,
+    read_time: a.readTime,
+    content: a.content,
+    publishedAt: a.publishedAt.toISOString().split('T')[0],
+    excerpt: a.excerpt,
+  }));
 
   return (
     <section className="section-padding bg-transparent">
@@ -39,9 +52,9 @@ export default function InsightfulArticles() {
           {/* Right Column - Slider */}
           <div className="lg:col-span-8 overflow-hidden">
             <div className="flex gap-6 overflow-x-auto pb-4 snap-x hide-scrollbar">
-              {mockArticles.slice(0, 3).map((article) => (
+              {displayedArticles.map((article) => (
                 <div key={article.id} className="min-w-[280px] w-full md:min-w-[320px] lg:min-w-[350px] max-w-[350px] snap-center shrink-0">
-                  <ArticleCard article={article} />
+                  <ArticleCard article={article as any} />
                 </div>
               ))}
             </div>

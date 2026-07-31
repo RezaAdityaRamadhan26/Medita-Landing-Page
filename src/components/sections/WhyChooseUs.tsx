@@ -19,7 +19,10 @@ const features = [
   },
 ];
 
-export default function WhyChooseUs() {
+export default function WhyChooseUs({ settings }: { settings?: Record<string, string> }) {
+  const about_title = settings?.about_title || "It's not about how grand your website looks, but how effectively it works for your business.";
+  const about_description = settings?.about_description || "At Medita Solusi, we believe that a great digital presence isn't just about aesthetics — it's about creating real value, driving conversions, and building lasting relationships with your audience.";
+
   return (
     <section className="section-padding bg-transparent">
       <div className="container-main px-4 lg:px-8">
@@ -54,13 +57,10 @@ export default function WhyChooseUs() {
               Why Choose Us
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-neo-black leading-[1.2] mb-6">
-              It&apos;s not about how grand your website looks, but how effectively it
-              works for your business.
+              {about_title}
             </h2>
             <p className="text-neo-black text-base md:text-lg leading-relaxed mb-8">
-              At Medita Solusi, we believe that a great digital presence isn&apos;t just about
-              aesthetics — it&apos;s about creating real value, driving conversions, and
-              building lasting relationships with your audience.
+              {about_description}
             </p>
 
             {/* Feature List */}

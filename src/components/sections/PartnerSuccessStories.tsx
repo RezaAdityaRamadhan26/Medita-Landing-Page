@@ -1,12 +1,22 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import CaseStudyCard from "@/components/cards/CaseStudyCard";
-import { mockCaseStudies } from "@/data/mock";
+import prisma from "@/lib/prisma";
 
-export default function PartnerSuccessStories() {
-  const displayedCaseStudies = mockCaseStudies.slice(0, 3);
+export default async function PartnerSuccessStories() {
+  const dbCaseStudies = await prisma.caseStudy.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 3,
+  });
+
+  const displayedCaseStudies = dbCaseStudies.map(cs => ({
+    id: cs.id,
+    title: cs.title,
+    slug: cs.slug,
+    category_tag: cs.categoryTag,
+    summary: cs.summary,
+    thumbnail: cs.thumbnail || "",
+    link: cs.link || undefined,
+  }));
 
   return (
     <section className="section-padding bg-transparent">
@@ -39,9 +49,9 @@ export default function PartnerSuccessStories() {
           {/* Right Column - Slider */}
           <div className="lg:col-span-8 overflow-hidden">
             <div className="flex gap-6 overflow-x-auto pb-4 snap-x hide-scrollbar">
-              {mockCaseStudies.slice(0, 2).map((cs) => (
+              {displayedCaseStudies.map((cs) => (
                 <div key={cs.id} className="min-w-[280px] w-full md:min-w-[320px] lg:min-w-[350px] max-w-[350px] snap-center shrink-0">
-                  <CaseStudyCard caseStudy={cs} />
+                  <CaseStudyCard caseStudy={cs as any} />
                 </div>
               ))}
             </div>

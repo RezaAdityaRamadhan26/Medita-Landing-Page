@@ -5,9 +5,11 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { mockLandingPage } from "@/data/mock";
 
-export default function HeroSection() {
-  const { hero_badge_text, hero_heading_title, hero_description, cta_button_text } =
-    mockLandingPage;
+export default function HeroSection({ settings }: { settings?: Record<string, string> }) {
+  const hero_badge_text = settings?.hero_badge_text || mockLandingPage.hero_badge_text;
+  const hero_heading_title = settings?.hero_heading_title || mockLandingPage.hero_heading_title;
+  const hero_description = settings?.hero_description || mockLandingPage.hero_description;
+  const cta_button_text = settings?.cta_button_text || mockLandingPage.cta_button_text;
 
   return (
     <section className="relative bg-hero-gradient overflow-hidden border-b-2 border-neo-black">

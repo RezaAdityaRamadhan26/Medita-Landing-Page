@@ -4,8 +4,16 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { mockLandingPage } from "@/data/mock";
 
-export default function ServicesShowcase() {
-  const { service_title, service_description, service_cards } = mockLandingPage;
+export default function ServicesShowcase({ 
+  settings, 
+  services 
+}: { 
+  settings?: Record<string, string>,
+  services?: any[] 
+}) {
+  const service_title = settings?.service_title || mockLandingPage.service_title;
+  const service_description = settings?.service_description || mockLandingPage.service_description;
+  const displayService = services && services.length > 0 ? services[0] : mockLandingPage.service_cards[0];
 
   return (
     <section className="section-padding bg-transparent">
@@ -46,17 +54,17 @@ export default function ServicesShowcase() {
                 {/* Content */}
                 <div>
                   <h3 className="text-2xl md:text-3xl font-extrabold text-neo-black mb-4">
-                    {service_cards[0].title}
+                    {displayService.title}
                   </h3>
                   <p className="text-neo-black font-medium text-sm md:text-base leading-relaxed mb-6">
-                    {service_cards[0].description}
+                    {displayService.description}
                   </p>
                 </div>
                 {/* Illustration */}
                 <div className="w-full relative flex items-center justify-center">
                   <Image
-                    src="/our-services.svg"
-                    alt={service_cards[0].title}
+                    src={displayService.image || "/our-services.svg"}
+                    alt={displayService.title}
                     width={500}
                     height={400}
                     className="w-full h-auto max-h-[400px] object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl"
