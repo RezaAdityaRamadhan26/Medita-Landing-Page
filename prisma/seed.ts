@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   // 1. Create Admin User
-  const adminEmail = 'admin@medita.com';
+  const adminEmail = 'admin@gmail.com';
   const existingAdmin = await prisma.user.findUnique({ where: { email: adminEmail } });
   
   if (!existingAdmin) {
@@ -18,7 +18,7 @@ async function main() {
         name: 'Administrator',
       },
     });
-    console.log('Created admin user: admin@medita.com / admin123');
+    console.log('Created admin user: admin@gmail.com / admin123');
   }
 
   // 2. Seed Articles
