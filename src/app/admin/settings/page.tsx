@@ -12,8 +12,8 @@ export default async function AdminSettingsPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-extrabold text-neo-black mb-8">Global Settings</h1>
-      <p className="text-neutral-muted mb-8">Manage the text content for the Hero section, About section, and Footer.</p>
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-neo-black mb-4 sm:mb-8">Global Settings</h1>
+      <p className="text-neutral-muted mb-8 text-sm sm:text-base">Manage the text content for the Hero section, About section, and Footer.</p>
       
       <SettingsForm initialData={settingsMap} />
     </div>

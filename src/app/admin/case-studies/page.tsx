@@ -9,8 +9,8 @@ export default async function AdminCaseStudiesPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-extrabold text-neo-black">Manage Case Studies</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-neo-black">Manage Case Studies</h1>
         <Link 
           href="/admin/case-studies/new"
           className="py-2 px-4 bg-primary-green text-white font-bold rounded-lg border-2 border-neo-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all"
@@ -20,7 +20,8 @@ export default async function AdminCaseStudiesPage() {
       </div>
 
       <div className="bg-white rounded-card border-4 border-neo-black shadow-neo overflow-hidden">
-        <table className="w-full text-left border-collapse">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse whitespace-nowrap">
           <thead>
             <tr className="bg-slate-100 border-b-4 border-neo-black text-neo-black font-bold">
               <th className="p-4">Title</th>
@@ -53,6 +54,7 @@ export default async function AdminCaseStudiesPage() {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

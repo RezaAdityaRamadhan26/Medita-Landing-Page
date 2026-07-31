@@ -8,8 +8,8 @@ export default async function AdminServicesPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-extrabold text-neo-black">Manage Services</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-neo-black">Manage Services</h1>
         <Link
           href="/admin/services/new"
           className="px-6 py-3 bg-neo-blue text-white font-bold rounded-lg border-2 border-neo-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
@@ -20,7 +20,7 @@ export default async function AdminServicesPage() {
 
       <div className="bg-white rounded-card border-4 border-neo-black shadow-neo overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse whitespace-nowrap">
             <thead>
               <tr className="bg-slate-100 border-b-2 border-neo-black">
                 <th className="p-4 font-bold text-neo-black border-r-2 border-neo-black">ID</th>
