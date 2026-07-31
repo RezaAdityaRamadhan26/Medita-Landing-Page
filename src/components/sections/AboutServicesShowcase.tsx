@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { mockLandingPage } from "@/data/mock";
 
 export default function AboutServicesShowcase() {
@@ -59,10 +60,14 @@ export default function AboutServicesShowcase() {
                 </svg>
               </a>
             </div>
-            <div className="bg-neo-blue p-8 md:p-12 flex items-center justify-center min-h-[280px] lg:border-l-2 lg:border-neo-black border-t-2 lg:border-t-0 border-neo-black">
-              <div className="w-32 h-32 bg-white rounded-full border-2 border-neo-black shadow-neo flex items-center justify-center">
-                <span className="text-5xl font-bold text-neo-black">W</span>
-              </div>
+            <div className="bg-neo-blue p-8 md:p-12 flex items-center justify-center min-h-[280px] lg:border-l-2 lg:border-neo-black border-t-2 lg:border-t-0 border-neo-black relative overflow-hidden">
+              <Image 
+                src={service_cards[0].image} 
+                alt={service_cards[0].title} 
+                width={400} 
+                height={400} 
+                className="w-full h-auto object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl" 
+              />
             </div>
           </div>
         </motion.div>
@@ -78,13 +83,14 @@ export default function AboutServicesShowcase() {
               transition={{ duration: 0.4, delay: index * 0.1 }}
               className="bg-white rounded-[24px] border-2 border-neo-black p-6 shadow-neo hover:translate-y-[-4px] hover:shadow-neo-lg transition-all duration-300 group"
             >
-              {/* Service Icon Placeholder */}
-              <div className="w-14 h-14 rounded-xl bg-neo-yellow border-2 border-neo-black flex items-center justify-center mb-6 group-hover:bg-neo-lime transition-colors duration-200 shadow-neo-sm">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200">
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                  <line x1="8" y1="21" x2="16" y2="21" />
-                  <line x1="12" y1="17" x2="12" y2="21" />
-                </svg>
+              <div className="w-full relative h-40 mb-6 flex items-center justify-center">
+                <Image 
+                  src={service.image} 
+                  alt={service.title} 
+                  width={200} 
+                  height={160} 
+                  className="w-full h-full object-contain drop-shadow-[4px_4px_0_#1A1A1A]" 
+                />
               </div>
               <h4 className="text-xl font-bold text-neo-black mb-3">
                 {service.title}

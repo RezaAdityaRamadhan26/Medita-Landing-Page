@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function PartnerBanner() {
   return (
@@ -11,19 +12,19 @@ export default function PartnerBanner() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left justify-center"
+          className="flex flex-col items-center text-center justify-center max-w-3xl mx-auto"
         >
-          {/* Star/Badge Icon */}
-          <div className="shrink-0 w-14 h-14 rounded-2xl bg-neo-yellow border-2 border-neo-black shadow-neo-sm flex items-center justify-center">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="#1A1A1A" stroke="#1A1A1A">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
+          <span className="text-sm font-semibold text-[#2D7362] mb-3">
+            They&apos;ve trusted us — and we&apos;re just getting started.
+          </span>
+          <h2 className="text-lg md:text-2xl font-bold text-neo-black leading-snug mb-10">
+            We pride ourselves in helping our clients grow digitally. Now, it&apos;s your
+            business&apos; turn to level up with Medita Solusi.
+          </h2>
+          <div className="flex items-center justify-center gap-8 md:gap-16">
+            <Image src="/storia-coffee-logo.svg" alt="Storia Coffee" width={120} height={120} className="w-24 md:w-32 h-auto" />
+            <Image src="/kharisma-furniture-logo.svg" alt="Kharisma Furniture" width={120} height={120} className="w-24 md:w-32 h-auto" />
           </div>
-          <p className="text-base md:text-xl font-bold text-neo-black leading-relaxed max-w-3xl">
-            We pride ourselves in helping our clients grow digitally. Now it&apos;s your
-            business&apos;s turn to level up with{" "}
-            <span className="text-neo-blue underline decoration-4 underline-offset-4">Medita Solusi.</span>
-          </p>
         </motion.div>
       </div>
     </section>

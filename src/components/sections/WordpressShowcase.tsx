@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { mockLandingPage } from "@/data/mock";
 
 export default function WordpressShowcase() {
@@ -37,11 +38,15 @@ export default function WordpressShowcase() {
               </a>
             </div>
 
-            {/* WordPress Logo / Image Placeholder */}
-            <div className="bg-neo-blue p-8 md:p-12 flex items-center justify-center min-h-[280px] lg:border-l-2 lg:border-neo-black border-t-2 lg:border-t-0 border-neo-black">
-              <div className="w-32 h-32 bg-white rounded-full border-2 border-neo-black shadow-neo flex items-center justify-center">
-                <span className="text-5xl font-bold text-neo-black">W</span>
-              </div>
+            {/* WordPress Image */}
+            <div className="p-8 md:p-12 flex items-center justify-center min-h-[280px] lg:border-l-2 lg:border-neo-black border-t-2 lg:border-t-0 border-neo-black bg-neo-blue relative overflow-hidden">
+               <Image 
+                 src="/illustrations/service-wordpress.webp" 
+                 alt="Wordpress" 
+                 width={400} 
+                 height={400} 
+                 className="w-full h-auto object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl" 
+               />
             </div>
           </div>
         </motion.div>

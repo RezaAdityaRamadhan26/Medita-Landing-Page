@@ -51,18 +51,14 @@ export default function ContactForm() {
                 <div className="absolute top-10 left-10 w-16 h-8 bg-neo-blue rounded-full border-2 border-neo-black shadow-neo-sm rotate-12"></div>
                 <div className="absolute bottom-20 right-10 w-12 h-12 bg-[#FF7F50] rounded-full border-2 border-neo-black shadow-neo-sm"></div>
                 
-                {/* Main Illustration Placeholder */}
-                <div className="w-[80%] aspect-[4/3] bg-white rounded-xl border-2 border-neo-black shadow-neo relative z-10 flex flex-col overflow-hidden">
-                   <div className="h-6 bg-neutral-200 border-b-2 border-neo-black flex items-center px-3 gap-1.5">
-                     <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
-                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
-                     <div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
-                   </div>
-                   <div className="flex-1 bg-gradient-to-br from-blue-50 to-orange-50 flex items-center justify-center p-6">
-                     <div className="w-24 h-24 bg-white rounded-full border-2 border-neo-black shadow-neo-sm flex items-center justify-center">
-                       <Laptop className="w-12 h-12 text-neo-black" strokeWidth={1.5} />
-                     </div>
-                   </div>
+                <div className="relative z-10 w-full flex justify-center">
+                  <Image 
+                    src="/want-to-know-more.svg" 
+                    alt="Contact Us" 
+                    width={500} 
+                    height={500} 
+                    className="w-full h-auto max-w-[400px] object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl" 
+                  />
                 </div>
               </div>
             </div>

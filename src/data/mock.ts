@@ -153,7 +153,7 @@ export const mockArticles: Article[] = [
     id: 1,
     title: "Mengapa Website Branding Penting untuk Kepercayaan Pelanggan",
     slug: "mengapa-website-branding-penting",
-    cover_image: "/placeholder-article-1.svg",
+    cover_image: "/blog-1.svg",
     category: "Website Branding",
     read_time: "5 min read",
     content: `<p>Lorem ipsum dolor sit amet consectetur adipiscing elit porttitor, mollis fames scelerisque aliquam ac non est penatibus hac, sapien elementum tincidunt nunc magna varius leo. Massa luctus bibendum dapibus nisl magna netus penatibus senectus, cubilia enim sollicitudin libero nam ultricies consequat mi non.</p>
@@ -167,7 +167,7 @@ export const mockArticles: Article[] = [
     id: 2,
     title: "Strategi Digital Marketing Terbaik untuk Meningkatkan Penjualan Online",
     slug: "strategi-digital-marketing-terbaik",
-    cover_image: "/placeholder-article-2.svg",
+    cover_image: "/blog-2.svg",
     category: "Digital Marketing",
     read_time: "7 min read",
     content:
@@ -180,7 +180,7 @@ export const mockArticles: Article[] = [
     id: 3,
     title: "Mulai Digital Marketing dalam 7 Langkah Praktis untuk Pemula",
     slug: "mulai-digital-marketing-7-langkah",
-    cover_image: "/placeholder-article-3.svg",
+    cover_image: "/blog-1.svg",
     category: "Digital Marketing",
     read_time: "6 min read",
     content:
@@ -193,7 +193,7 @@ export const mockArticles: Article[] = [
     id: 4,
     title: "Mengapa Website yang Cepat Loading Penting untuk SEO",
     slug: "website-cepat-loading-seo",
-    cover_image: "/placeholder-article-1.svg",
+    cover_image: "/blog-2.svg",
     category: "Website Branding",
     read_time: "4 min read",
     content:
@@ -206,7 +206,7 @@ export const mockArticles: Article[] = [
     id: 5,
     title: "Mindful Digital Marketing untuk Pertumbuhan Bisnis",
     slug: "mindful-digital-marketing",
-    cover_image: "/placeholder-article-2.svg",
+    cover_image: "/blog-1.svg",
     category: "Digital Marketing",
     read_time: "8 min read",
     content:
@@ -219,7 +219,7 @@ export const mockArticles: Article[] = [
     id: 6,
     title: "Tips Membuat Landing Page yang Efektif untuk Konversi",
     slug: "tips-landing-page-efektif",
-    cover_image: "/placeholder-article-3.svg",
+    cover_image: "/blog-2.svg",
     category: "Website Branding",
     read_time: "5 min read",
     content:
@@ -239,7 +239,7 @@ export const mockCaseStudies: CaseStudy[] = [
     category_tag: "UI/UX Design",
     summary:
       "Lorem ipsum dolor sit amet consectetur. Euismod ornare purus felis eget aliquam. Vel nisi integer sem noque parturient aliquet vitae tellus velit. S lorem vitae lectus tempus tincidunt.",
-    thumbnail: "/placeholder-casestudy-1.svg",
+    thumbnail: "/case-study-1.svg",
     link: "#",
   },
   {
@@ -250,7 +250,7 @@ export const mockCaseStudies: CaseStudy[] = [
     category_tag: "Website Wordpress",
     summary:
       "Lorem ipsum dolor sit amet consectetur. Vel nisi integer sem noque parturient aliquet vitae tellus velit. Bibendum vitae lectus tempus tincidunt.",
-    thumbnail: "/placeholder-casestudy-2.svg",
+    thumbnail: "/case-study-2.svg",
     link: "#",
   },
   {
@@ -261,7 +261,7 @@ export const mockCaseStudies: CaseStudy[] = [
     category_tag: "Website Custom Development",
     summary:
       "Lorem ipsum dolor sit amet consectetur. Euismod ornare purus felis eget aliquam. Vel nisi integer sem noque parturient aliquet vitae tellus velit.",
-    thumbnail: "/placeholder-casestudy-3.svg",
+    thumbnail: "/case-study-1.svg",
     link: "#",
   },
   {
@@ -272,7 +272,7 @@ export const mockCaseStudies: CaseStudy[] = [
     category_tag: "UI/UX Design",
     summary:
       "Lorem ipsum dolor sit amet consectetur. Euismod ornare purus felis eget aliquam.",
-    thumbnail: "/placeholder-casestudy-1.svg",
+    thumbnail: "/case-study-2.svg",
     link: "#",
   },
   {
@@ -283,7 +283,7 @@ export const mockCaseStudies: CaseStudy[] = [
     category_tag: "Website Wordpress",
     summary:
       "Lorem ipsum dolor sit amet consectetur. Vel nisi integer sem noque parturient.",
-    thumbnail: "/placeholder-casestudy-2.svg",
+    thumbnail: "/case-study-1.svg",
     link: "#",
   },
   {
@@ -294,7 +294,7 @@ export const mockCaseStudies: CaseStudy[] = [
     category_tag: "UI/UX Design",
     summary:
       "Lorem ipsum dolor sit amet consectetur. Euismod ornare purus felis eget aliquam.",
-    thumbnail: "/placeholder-casestudy-3.svg",
+    thumbnail: "/case-study-2.svg",
     link: "#",
   },
 ];

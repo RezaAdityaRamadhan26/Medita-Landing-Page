@@ -33,40 +33,37 @@ export default function ServicesShowcase() {
           </div>
         </motion.div>
 
-        {/* Services List (Stacked Full-width Cards) */}
+        {/* Services Highlight Card */}
         <div className="flex flex-col gap-8">
-          {service_cards.map((service, index) => (
             <motion.div
-              key={service.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`rounded-[24px] border-2 border-neo-black p-8 md:p-12 ${service.color || "bg-white"} overflow-hidden`}
+              transition={{ duration: 0.5 }}
+              className="rounded-[24px] border-2 border-neo-black p-8 md:p-12 bg-[#FDE2CD] overflow-hidden"
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 {/* Content */}
                 <div>
                   <h3 className="text-2xl md:text-3xl font-extrabold text-neo-black mb-4">
-                    {service.title}
+                    {service_cards[0].title}
                   </h3>
                   <p className="text-neo-black font-medium text-sm md:text-base leading-relaxed mb-6">
-                    {service.description}
+                    {service_cards[0].description}
                   </p>
                 </div>
                 {/* Illustration */}
                 <div className="w-full relative flex items-center justify-center">
                   <Image
-                    src={service.image}
-                    alt={service.title}
+                    src="/our-services.svg"
+                    alt={service_cards[0].title}
                     width={500}
                     height={400}
-                    className="w-full h-auto max-h-[350px] object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl"
+                    className="w-full h-auto max-h-[400px] object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl"
                   />
                 </div>
               </div>
             </motion.div>
-          ))}
         </div>
       </div>
     </section>

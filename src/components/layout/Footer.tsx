@@ -61,13 +61,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4 bg-white p-2 rounded-xl border-2 border-neo-black shadow-neo inline-flex w-fit">
+            <Link href="/" className="flex items-center gap-2 mb-6">
               <Image 
-                src="/Logo.svg" 
+                src="/logo-footer.svg" 
                 alt="Medita Solusi Digital" 
                 width={140} 
                 height={40} 
-                className="h-8 w-auto object-contain" 
+                className="h-10 w-auto object-contain" 
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-md mt-4">

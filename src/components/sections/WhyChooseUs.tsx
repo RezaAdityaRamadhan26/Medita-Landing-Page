@@ -1,34 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lightbulb } from "lucide-react";
+import Image from "next/image";
+import { Handshake, Leaf, Target } from "lucide-react";
 
 const features = [
   {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-      </svg>
-    ),
-    title: "Conversion as the priority",
+    icon: <Handshake className="w-5 h-5" />,
+    title: "Partnership That Grows Together",
   },
   {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
-    title: "Focus on beautiful art",
+    icon: <Leaf className="w-5 h-5" />,
+    title: "Focus on Sustainable Growth",
   },
   {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    ),
-    title: "Trust and reliability",
+    icon: <Target className="w-5 h-5" />,
+    title: "Accurate and Scalable Digital Solutions",
   },
 ];
 
@@ -45,15 +32,14 @@ export default function WhyChooseUs() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="w-full aspect-square max-w-[460px] mx-auto bg-neo-yellow rounded-3xl border-2 border-neo-black shadow-neo flex items-center justify-center p-8 relative overflow-hidden">
-               <div className="absolute top-8 left-8 w-12 h-12 rounded-full border-2 border-neo-black bg-neo-lime"></div>
-               <div className="absolute bottom-12 right-12 w-16 h-16 rounded-full border-2 border-neo-black bg-neo-blue"></div>
-              <div className="relative w-[70%] aspect-square bg-white border-2 border-neo-black shadow-neo flex items-center justify-center rounded-2xl rotate-3">
-                {/* Placeholder illustration */}
-                <div className="w-32 h-32 bg-primary-green/10 rounded-full border-2 border-neo-black flex items-center justify-center">
-                  <Lightbulb className="w-16 h-16 text-neo-black" strokeWidth={1.5} />
-                </div>
-              </div>
+            <div className="w-full flex items-center justify-center relative">
+              <Image 
+                src="/why-choose-us.svg" 
+                alt="Why Choose Us" 
+                width={500} 
+                height={500} 
+                className="w-full h-auto max-w-[460px] object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl" 
+              />
             </div>
           </motion.div>
 
@@ -86,14 +72,19 @@ export default function WhyChooseUs() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white border-2 border-neo-black shadow-neo-sm hover:translate-y-[-2px] hover:shadow-neo transition-all duration-200 cursor-default"
+                  className="flex items-center justify-between p-4 rounded-xl bg-white border-2 border-neo-black shadow-none hover:translate-y-[-2px] hover:shadow-neo transition-all duration-200 cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-neo-lime border-2 border-neo-black flex items-center justify-center text-neo-black">
-                    {feature.icon}
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-neutral-100 border-2 border-neo-black flex items-center justify-center text-neo-black">
+                      {feature.icon}
+                    </div>
+                    <span className="text-base font-bold text-neo-black">
+                      {feature.title}
+                    </span>
                   </div>
-                  <span className="text-base font-bold text-neo-black">
-                    {feature.title}
-                  </span>
+                  <div className="w-6 h-6 border-2 border-neo-black rounded flex items-center justify-center shrink-0">
+                    <span className="text-lg font-bold leading-none mb-0.5">+</span>
+                  </div>
                 </motion.div>
               ))}
             </div>
