@@ -21,13 +21,14 @@ export default function AdminSidebar({ userName }: { userName: string | null | u
   return (
     <>
       {/* Mobile Hamburger Button */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b-2 border-neo-black z-40 flex items-center px-4 justify-between">
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b-2 border-neo-black z-40 flex items-center px-4 justify-between shadow-sm">
         <h2 className="text-xl font-bold text-neo-black">Medita Admin</h2>
         <button
           onClick={() => setIsOpen(true)}
-          className="p-2 border-2 border-neo-black rounded-lg hover:bg-slate-100 transition-colors"
+          className="px-3 py-2 flex items-center gap-2 border-2 border-neo-black rounded-lg hover:bg-slate-100 transition-colors bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none"
         >
-          <Menu size={24} />
+          <Menu size={20} />
+          <span className="font-bold text-sm">Menu</span>
         </button>
       </div>
 
