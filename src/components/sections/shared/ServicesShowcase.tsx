@@ -103,7 +103,7 @@ export default function ServicesShowcase({
             </div>
           </motion.div>
 
-          {/* Illustration Side - Geometric Multi-layer Frame */}
+          {/* Illustration Side - Interactive Hover Rotation (Slow & Smooth) */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -111,35 +111,36 @@ export default function ServicesShowcase({
             transition={{ duration: 0.6, delay: 0.15 }}
             className="lg:col-span-6 order-1 lg:order-2 w-full relative flex items-center justify-center py-6"
           >
-            <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center p-6 sm:p-10">
+            {/* Added group modifier to trigger smooth geometric hover rotation */}
+            <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center p-6 sm:p-10 group cursor-pointer">
               
-              {/* Layer 1: Angled Background Accent Plane */}
-              <div className="absolute inset-2 sm:inset-4 bg-[#FDE2CD] border-3 border-neo-black rounded-[36px] shadow-neo rotate-[4deg] transition-transform duration-500 hover:rotate-2" />
+              {/* Layer 1: Angled Background Accent Plane - Slowly spins around behind image on hover! */}
+              <div className="absolute inset-2 sm:inset-4 bg-[#FDE2CD] border-3 border-neo-black rounded-[36px] shadow-neo rotate-[4deg] transition-transform duration-[1800ms] ease-out group-hover:rotate-[184deg] sm:group-hover:scale-[1.04]" />
 
-              {/* Layer 2: Offset Geometric Pattern / Grid Plate */}
-              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] -rotate-[3deg] overflow-hidden">
+              {/* Layer 2: Offset Geometric Pattern / Grid Plate - Gently pivots in complementary rhythm */}
+              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] -rotate-[3deg] transition-transform duration-[1200ms] ease-out group-hover:rotate-[6deg] overflow-hidden">
                 {/* Subtle Halftone Grid Texture Inside Plate */}
                 <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#1A1A1A_1px,transparent_1px)] [background-size:16px_16px]" />
               </div>
 
-              {/* Decorative Geometric Badges Floating */}
-              <div className="absolute top-4 left-4 w-12 h-12 bg-neo-blue rounded-2xl border-3 border-neo-black shadow-neo flex items-center justify-center rotate-[-12deg] z-20">
+              {/* Decorative Geometric Badges Floating with gentle lift on hover */}
+              <div className="absolute top-4 left-4 w-12 h-12 bg-neo-blue rounded-2xl border-3 border-neo-black shadow-neo flex items-center justify-center rotate-[-12deg] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[-4deg] z-20">
                 <Lightbulb size={24} className="text-white fill-amber-300 stroke-[2]" />
               </div>
               
-              <div className="absolute bottom-6 right-6 px-3.5 py-2 bg-neo-lime border-3 border-neo-black rounded-xl shadow-neo font-extrabold text-xs text-neo-black rotate-[8deg] z-20 hidden sm:inline-flex items-center gap-1.5">
+              <div className="absolute bottom-6 right-6 px-3.5 py-2 bg-neo-lime border-3 border-neo-black rounded-xl shadow-neo font-extrabold text-xs text-neo-black rotate-[8deg] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[3deg] z-20 hidden sm:inline-flex items-center gap-1.5">
                 <Rocket size={15} className="text-neo-blue fill-neo-blue/20 shrink-0 stroke-[2.5]" />
                 <span>#1 Solution</span>
               </div>
 
-              {/* Main Illustration Content */}
+              {/* Main Illustration Content - Slightly elevates toward user on hover */}
               <div className="relative z-10 w-full flex items-center justify-center">
                 <Image
                   src={displayService.image || "/our-services.svg"}
                   alt={displayService.title}
                   width={500}
                   height={500}
-                  className="w-full h-auto max-h-[380px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl hover:scale-[1.03] transition-transform duration-300"
+                  className="w-full h-auto max-h-[380px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl transition-transform duration-500 group-hover:scale-[1.05]"
                 />
               </div>
 
