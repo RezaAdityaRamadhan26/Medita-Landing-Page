@@ -64,7 +64,7 @@ export default function WordpressShowcase() {
             </div>
           </motion.div>
 
-          {/* WordPress Layered Geometric Illustration (6 columns) with slow hover rotation */}
+          {/* WordPress Layered Geometric Illustration with ~30 degree hover tilt */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -74,11 +74,11 @@ export default function WordpressShowcase() {
           >
             <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center p-6 sm:p-10 group cursor-pointer">
               
-              {/* Angled Backdrop Layer - Slow spin on hover */}
-              <div className="absolute inset-2 sm:inset-4 bg-neo-blue/25 border-3 border-neo-black rounded-[36px] shadow-neo rotate-[-5deg] transition-transform duration-[1800ms] ease-out group-hover:rotate-[175deg] sm:group-hover:scale-[1.04]" />
+              {/* Angled Backdrop Layer - ~30 degree spin on hover */}
+              <div className="absolute inset-2 sm:inset-4 bg-neo-blue/25 border-3 border-neo-black rounded-[36px] shadow-neo rotate-[-5deg] transition-transform duration-1000 ease-out group-hover:rotate-[28deg] sm:group-hover:scale-[1.03]" />
 
-              {/* Front Plate Layer - Subtle opposite pivot */}
-              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] rotate-[3deg] transition-transform duration-[1200ms] ease-out group-hover:-rotate-[5deg] overflow-hidden flex items-center justify-center">
+              {/* Front Plate Layer */}
+              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] rotate-[3deg] transition-transform duration-700 ease-out group-hover:-rotate-[6deg] overflow-hidden flex items-center justify-center">
                 <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#1A1A1A_1px,transparent_1px)] [background-size:18px_18px]" />
               </div>
 
@@ -95,7 +95,7 @@ export default function WordpressShowcase() {
                   alt="Wordpress" 
                   width={450} 
                   height={450} 
-                  className="w-full h-auto max-h-[370px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl transition-transform duration-500 group-hover:scale-[1.05]" 
+                  className="w-full h-auto max-h-[370px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl transition-transform duration-500 group-hover:scale-[1.04]" 
                 />
               </div>
 

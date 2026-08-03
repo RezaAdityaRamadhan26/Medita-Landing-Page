@@ -103,7 +103,7 @@ export default function ServicesShowcase({
             </div>
           </motion.div>
 
-          {/* Illustration Side - Interactive Hover Rotation (Slow & Smooth) */}
+          {/* Illustration Side - Subtle ~30 Degree Hover Tilt & Rotation */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -111,15 +111,13 @@ export default function ServicesShowcase({
             transition={{ duration: 0.6, delay: 0.15 }}
             className="lg:col-span-6 order-1 lg:order-2 w-full relative flex items-center justify-center py-6"
           >
-            {/* Added group modifier to trigger smooth geometric hover rotation */}
             <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center p-6 sm:p-10 group cursor-pointer">
               
-              {/* Layer 1: Angled Background Accent Plane - Slowly spins around behind image on hover! */}
-              <div className="absolute inset-2 sm:inset-4 bg-[#FDE2CD] border-3 border-neo-black rounded-[36px] shadow-neo rotate-[4deg] transition-transform duration-[1800ms] ease-out group-hover:rotate-[184deg] sm:group-hover:scale-[1.04]" />
+              {/* Layer 1: Angled Background Accent Plane - Gently rotates around 28 degrees on hover */}
+              <div className="absolute inset-2 sm:inset-4 bg-[#FDE2CD] border-3 border-neo-black rounded-[36px] shadow-neo rotate-[4deg] transition-transform duration-1000 ease-out group-hover:rotate-[28deg] sm:group-hover:scale-[1.03]" />
 
-              {/* Layer 2: Offset Geometric Pattern / Grid Plate - Gently pivots in complementary rhythm */}
-              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] -rotate-[3deg] transition-transform duration-[1200ms] ease-out group-hover:rotate-[6deg] overflow-hidden">
-                {/* Subtle Halftone Grid Texture Inside Plate */}
+              {/* Layer 2: Offset Geometric Pattern / Grid Plate - Subtle complementary pivot to 7 degrees */}
+              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] -rotate-[3deg] transition-transform duration-700 ease-out group-hover:rotate-[7deg] overflow-hidden">
                 <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#1A1A1A_1px,transparent_1px)] [background-size:16px_16px]" />
               </div>
 
@@ -133,14 +131,14 @@ export default function ServicesShowcase({
                 <span>#1 Solution</span>
               </div>
 
-              {/* Main Illustration Content - Slightly elevates toward user on hover */}
+              {/* Main Illustration Content */}
               <div className="relative z-10 w-full flex items-center justify-center">
                 <Image
                   src={displayService.image || "/our-services.svg"}
                   alt={displayService.title}
                   width={500}
                   height={500}
-                  className="w-full h-auto max-h-[380px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl transition-transform duration-500 group-hover:scale-[1.05]"
+                  className="w-full h-auto max-h-[380px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               </div>
 
