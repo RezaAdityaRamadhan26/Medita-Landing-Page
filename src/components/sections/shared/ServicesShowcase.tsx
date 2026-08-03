@@ -17,59 +17,77 @@ export default function ServicesShowcase({
   const displayService = services && services.length > 0 ? services[0] : mockLandingPage.service_cards[0];
 
   return (
-    <section className="section-padding bg-transparent">
-      <div className="container-main px-4 lg:px-8">
-        {/* Section Header */}
+    <section id="services-showcase" className="py-16 bg-transparent">
+      <div className="container-main px-4 sm:px-6 lg:px-8">
+        {/* Section Header - Aligned cleanly to max-w-4xl for visual balance */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 mb-16"
+          className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-end mb-10"
         >
-          <div>
-            <span className="block text-sm font-bold text-neo-blue mb-4">
+          <div className="md:col-span-6">
+            <span className="inline-block text-xs font-black text-neo-black bg-neo-lime border-2 border-neo-black shadow-neo-sm uppercase tracking-wider px-3 py-1 rounded-full mb-3">
               Our Services
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-[40px] font-extrabold text-neo-black leading-[1.2]">
+            <h2 className="text-2xl sm:text-3xl md:text-[34px] font-extrabold text-neo-black leading-[1.2]">
               {service_title}
             </h2>
           </div>
-          <div className="flex items-center">
-            <p className="text-neo-black font-medium text-base md:text-lg leading-relaxed">
+          <div className="md:col-span-6">
+            <p className="text-slate-700 font-semibold text-xs sm:text-sm leading-relaxed">
               {service_description}
             </p>
           </div>
         </motion.div>
 
-        {/* Services Highlight Card */}
-        <div className="flex flex-col gap-8">
+        {/* Services Highlight Card - Constrained to max-w-4xl with harmonious proportions */}
+        <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="rounded-[24px] border-2 border-neo-black p-8 md:p-12 bg-[#FDE2CD] overflow-hidden"
+              className="rounded-card border-3 border-neo-black p-6 sm:p-8 md:p-10 bg-[#FDE2CD] shadow-neo overflow-hidden"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                {/* Content */}
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-extrabold text-neo-black mb-4">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-10 items-center">
+                {/* Content Area (7 columns on large screens) */}
+                <div className="lg:col-span-7 flex flex-col justify-center">
+                  <span className="text-[11px] font-extrabold uppercase tracking-widest text-slate-700 mb-2 block">
+                    ✨ Featured Solution
+                  </span>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-neo-black mb-3">
                     {displayService.title}
                   </h3>
-                  <p className="text-neo-black font-medium text-sm md:text-base leading-relaxed mb-6">
+                  <p className="text-slate-800 font-semibold text-xs sm:text-sm md:text-base leading-relaxed mb-6">
                     {displayService.description}
                   </p>
+                  <div>
+                    <a
+                      href={displayService.link || "#contact"}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-neo-black text-xs sm:text-sm font-extrabold rounded-full border-2 border-neo-black shadow-[2px_2px_0_0_#1A1A1A] hover:bg-neo-lime hover:translate-y-[-1px] active:translate-y-[1px] transition-all duration-200"
+                    >
+                      <span>Pelajari Lebih Lanjut</span>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-                {/* Illustration */}
-                <div className="w-full relative flex items-center justify-center">
-                  <Image
-                    src={displayService.image || "/our-services.svg"}
-                    alt={displayService.title}
-                    width={500}
-                    height={400}
-                    className="w-full h-auto max-h-[400px] object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl"
-                  />
+
+                {/* Illustration Area (5 columns on large screens) - Trimmed height */}
+                <div className="lg:col-span-5 w-full flex items-center justify-center relative">
+                  <div className="relative w-full max-w-[280px] aspect-4/3 flex items-center justify-center">
+                    <Image
+                      src={displayService.image || "/our-services.svg"}
+                      alt={displayService.title}
+                      width={400}
+                      height={300}
+                      className="w-full h-auto max-h-[260px] object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl"
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>
