@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Upload, X, Trash2 } from "lucide-react";
+import { Upload, Trash2 } from "lucide-react";
 
 interface ImageUploadInputProps {
   label: string;
