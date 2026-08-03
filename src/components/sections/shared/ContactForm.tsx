@@ -69,86 +69,98 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="section-padding bg-transparent">
-      <div className="container-main px-4 lg:px-8">
-        <div className="bg-[#F4F6E6] rounded-card border-2 border-neo-black shadow-neo overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            {/* Illustration Side */}
-            <div className="hidden lg:flex items-end justify-center p-8 pt-12 relative">
-              <div className="relative w-full max-w-[400px] aspect-square flex items-center justify-center">
+    <section id="contact" className="py-16 bg-transparent">
+      <div className="container-main px-4 sm:px-6 lg:px-8">
+        {/* Constrained max-w-4xl for optimal, perfectly balanced sizing */}
+        <div className="max-w-4xl mx-auto bg-[#F4F6E6] rounded-card border-3 border-neo-black shadow-neo overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
+            
+            {/* Illustration & Branding (Left Side - 5 columns) */}
+            <div className="hidden lg:flex flex-col items-center justify-center lg:col-span-5 p-6 lg:py-10 relative bg-[#E8EDB8]/40 h-full border-r-2 border-neo-black">
+              <div className="relative w-full max-w-[260px] aspect-square flex flex-col items-center justify-center text-center">
                 {/* Decorative Elements */}
-                <div className="absolute top-10 left-10 w-16 h-8 bg-neo-blue rounded-full border-2 border-neo-black shadow-neo-sm rotate-12"></div>
-                <div className="absolute bottom-20 right-10 w-12 h-12 bg-[#FF7F50] rounded-full border-2 border-neo-black shadow-neo-sm"></div>
+                <div className="absolute -top-3 left-2 w-10 h-6 bg-neo-blue rounded-full border-2 border-neo-black shadow-neo-sm rotate-12" />
+                <div className="absolute bottom-4 right-2 w-8 h-8 bg-[#FF7F50] rounded-full border-2 border-neo-black shadow-neo-sm animate-bounce-short" />
                 
-                <div className="relative z-10 w-full flex justify-center">
+                <div className="relative z-10 w-full flex justify-center mb-2">
                   <Image 
                     src="/want-to-know-more.svg" 
-                    alt="Contact Us" 
-                    width={500} 
-                    height={500} 
-                    className="w-full h-auto max-w-[400px] object-contain drop-shadow-[4px_4px_0_#1A1A1A] rounded-2xl" 
+                    alt="Contact Us Illustration" 
+                    width={300} 
+                    height={300} 
+                    className="w-full h-auto max-w-[230px] object-contain drop-shadow-[3px_3px_0_#1A1A1A]" 
                   />
                 </div>
+                <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-white border-2 border-neo-black rounded-full shadow-neo-sm mt-2 text-neo-black">
+                  💬 Konsultasi Gratis
+                </span>
               </div>
             </div>
 
-            {/* Form Side */}
-            <div className="p-8 md:p-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-neo-black mb-2">
-                {form_title}
-              </h2>
-              <p className="text-neo-black text-sm mb-8">
-                {form_subtitle}
-              </p>
+            {/* Form Area (Right Side - 7 columns) */}
+            <div className="lg:col-span-7 p-6 sm:p-8">
+              <div className="mb-6">
+                <h2 className="text-xl sm:text-2xl font-extrabold text-neo-black mb-1">
+                  {form_title}
+                </h2>
+                <p className="text-slate-600 text-xs sm:text-sm font-semibold">
+                  {form_subtitle}
+                </p>
+              </div>
 
               {isSubmitted ? (
-                <div className="bg-neo-lime text-neo-black border-2 border-neo-black p-6 rounded-card shadow-neo text-center animate-bounce-short">
-                  <svg className="w-12 h-12 mx-auto mb-3 text-primary-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <div className="bg-neo-lime text-neo-black border-2 border-neo-black p-6 rounded-xl shadow-neo text-center my-4">
+                  <svg className="w-10 h-10 mx-auto mb-2 text-primary-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                     <polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
-                  <p className="font-bold text-lg mb-1">Pesan Berhasil Terkirim!</p>
-                  <p className="text-sm text-neo-black/80">Terima kasih! Tim kami akan segera meninjau pesan Anda dan membalas ke email Anda.</p>
+                  <p className="font-extrabold text-base mb-1">Pesan Berhasil Terkirim!</p>
+                  <p className="text-xs font-semibold text-slate-700">Terima kasih! Tim kami akan segera meninjau pesan Anda dan membalas ke email Anda.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   {errorMsg && (
-                    <div className="p-3 bg-[#FFCCD5] border-2 border-neo-black text-[#80001B] rounded-xl text-xs sm:text-sm font-bold shadow-neo-sm flex items-center gap-2">
+                    <div className="p-3 bg-[#FFCCD5] border-2 border-neo-black text-[#80001B] rounded-xl text-xs font-bold shadow-neo-sm flex items-center gap-2">
                       <span>⚠️</span>
                       <span className="flex-1">{errorMsg}</span>
                     </div>
                   )}
 
-                  <div>
-                    <label className="block text-sm font-medium text-neo-black mb-1.5">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your Name"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-neo-black bg-white text-sm focus:outline-none focus:ring-2 focus:ring-neo-blue transition-all"
-                    />
+                  {/* Name & Email Grid (2 Columns) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-neo-black mb-1">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your Name"
+                        required
+                        className="w-full px-3.5 py-2.5 rounded-xl border-2 border-neo-black bg-white text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-neo-blue transition-all shadow-[2px_2px_0_0_#1A1A1A] focus:translate-x-[1px] focus:translate-y-[1px] focus:shadow-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-neo-black mb-1">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your@email.com"
+                        required
+                        className="w-full px-3.5 py-2.5 rounded-xl border-2 border-neo-black bg-white text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-neo-blue transition-all shadow-[2px_2px_0_0_#1A1A1A] focus:translate-x-[1px] focus:translate-y-[1px] focus:shadow-none"
+                      />
+                    </div>
                   </div>
+
+                  {/* Services Select */}
                   <div>
-                    <label className="block text-sm font-medium text-neo-black mb-1.5">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Email"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-neo-black bg-white text-sm focus:outline-none focus:ring-2 focus:ring-neo-blue transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-neo-black mb-1.5">
+                    <label className="block text-[11px] font-extrabold uppercase tracking-wider text-neo-black mb-1">
                       Services
                     </label>
                     <select
@@ -156,58 +168,58 @@ export default function ContactForm() {
                       value={formData.service}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-neo-black bg-white text-sm focus:outline-none focus:ring-2 focus:ring-neo-blue transition-all appearance-none cursor-pointer"
+                      className="w-full px-3.5 py-2.5 rounded-xl border-2 border-neo-black bg-white text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-neo-blue transition-all shadow-[2px_2px_0_0_#1A1A1A] focus:translate-x-[1px] focus:translate-y-[1px] focus:shadow-none appearance-none cursor-pointer"
                     >
-                      <option value="">Select Service</option>
-                      <option value="Wordpress">Wordpress</option>
-                      <option value="Web Development">Web Development</option>
+                      <option value="">Select Service Needed</option>
+                      <option value="Wordpress">Wordpress Development</option>
+                      <option value="Web Development">Full Web Development</option>
                       <option value="UI/UX Design">UI / UX Design</option>
-                      <option value="Website Maintenance">
-                        Website Maintenance
-                      </option>
-                      <option value="Website Revamp">Website Revamp</option>
+                      <option value="Website Maintenance">Website Maintenance & Optimization</option>
+                      <option value="Website Revamp">Website Redesign / Revamp</option>
                     </select>
                   </div>
+
+                  {/* Message Textarea */}
                   <div>
-                    <label className="block text-sm font-medium text-neo-black mb-1.5">
+                    <label className="block text-[11px] font-extrabold uppercase tracking-wider text-neo-black mb-1">
                       Message
                     </label>
                     <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell us about your requirements..."
-                      rows={4}
+                      placeholder="Tell us briefly about your project requirements..."
+                      rows={3}
                       required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-neo-black bg-white text-sm focus:outline-none focus:ring-2 focus:ring-neo-blue transition-all resize-none"
+                      className="w-full px-3.5 py-2 rounded-xl border-2 border-neo-black bg-white text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-neo-blue transition-all shadow-[2px_2px_0_0_#1A1A1A] focus:translate-x-[1px] focus:translate-y-[1px] focus:shadow-none resize-none"
                     />
                   </div>
 
-                  {/* Google reCAPTCHA Widget */}
-                  <div className="pt-2 flex justify-start overflow-x-auto">
-                    {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
-                      <div className="border-2 border-neo-black rounded-lg overflow-hidden shadow-neo-sm">
-                        <ReCAPTCHA
-                          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                          onChange={(token: string | null) => setCaptchaToken(token)}
-                        />
-                      </div>
-                    ) : (
-                      <div className="text-xs bg-slate-100 border-2 border-dashed border-slate-400 p-3 rounded-xl text-slate-600 w-full">
-                        🔒 <strong>reCAPTCHA v2 Siap:</strong> Tambahkan <code>NEXT_PUBLIC_RECAPTCHA_SITE_KEY</code> di <code>.env</code> Anda untuk memunculkan kotak centang keamanan.
-                      </div>
-                    )}
-                  </div>
+                  {/* Google reCAPTCHA Widget & Submit Area */}
+                  <div className="pt-1 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="w-full sm:w-auto overflow-hidden">
+                      {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+                        <div className="border-2 border-neo-black rounded-lg overflow-hidden shadow-neo-sm inline-block transform scale-[0.95] origin-top-left">
+                          <ReCAPTCHA
+                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                            onChange={(token: string | null) => setCaptchaToken(token)}
+                          />
+                        </div>
+                      ) : (
+                        <div className="text-[11px] font-semibold bg-white border-2 border-dashed border-slate-400 px-3 py-2 rounded-xl text-slate-600 max-w-xs">
+                          🔒 <strong>reCAPTCHA Ready</strong>
+                        </div>
+                      )}
+                    </div>
 
-                  <div className="flex justify-end pt-2">
                     <Button
                       type="submit"
                       variant="secondary"
                       size="md"
                       disabled={isSubmitting}
-                      className="w-40 disabled:opacity-70"
+                      className="w-full sm:w-36 py-2.5 font-extrabold text-xs sm:text-sm shadow-neo hover:translate-y-[-1px] active:translate-y-[1px] shrink-0"
                     >
-                      {isSubmitting ? "Mengirim..." : form_button_text}
+                      {isSubmitting ? "Sending..." : form_button_text || "Email Now"}
                     </Button>
                   </div>
                 </form>
