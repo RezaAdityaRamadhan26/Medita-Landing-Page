@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { mockLandingPage } from "@/data/mock";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Monitor, Award } from "lucide-react";
 
 export default function WordpressShowcase() {
   const wpService = mockLandingPage.service_cards[0];
@@ -27,8 +27,9 @@ export default function WordpressShowcase() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-6 flex flex-col justify-center order-2 lg:order-1"
           >
-            <span className="inline-block text-xs font-black text-neo-black bg-neo-lime border-2 border-neo-black shadow-neo-sm uppercase tracking-wider px-3.5 py-1.5 rounded-full w-max mb-4">
-              💻 WordPress Mastery
+            <span className="inline-flex items-center gap-2 text-xs font-black text-neo-black bg-neo-lime border-2 border-neo-black shadow-neo-sm uppercase tracking-wider px-3.5 py-1.5 rounded-full w-max mb-4">
+              <Monitor size={15} className="text-neo-blue shrink-0 stroke-[2.5]" />
+              <span>WordPress Mastery</span>
             </span>
             
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-black text-neo-black mb-5 leading-[1.15]">
@@ -82,8 +83,9 @@ export default function WordpressShowcase() {
               </div>
 
               {/* Decorative Pill */}
-              <div className="absolute top-3 right-4 px-4 py-2 bg-[#FF7F50] text-white border-3 border-neo-black rounded-full shadow-neo font-black text-xs rotate-[6deg] z-20">
-                ⭐ Top CMS
+              <div className="absolute top-3 right-4 px-3.5 py-2 bg-[#FF7F50] text-white border-3 border-neo-black rounded-full shadow-neo font-black text-xs rotate-[6deg] z-20 inline-flex items-center gap-1.5">
+                <Award size={15} className="text-white fill-white/20 shrink-0 stroke-[2.5]" />
+                <span>Top CMS</span>
               </div>
 
               {/* Image */}

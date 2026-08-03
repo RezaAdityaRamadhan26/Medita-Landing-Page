@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { mockLandingPage } from "@/data/mock";
 import { ServiceCard } from "@/types";
-import { Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
+import { Sparkles, CheckCircle2, ArrowRight, Lightbulb, Rocket } from "lucide-react";
 
 export default function ServicesShowcase({ 
   settings, 
@@ -54,7 +54,7 @@ export default function ServicesShowcase({
           </div>
         </motion.div>
 
-        {/* Featured Service - Asymmetric Layered & Dynamic UI (Not Just a Box) */}
+        {/* Featured Service - Asymmetric Layered & Dynamic UI */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* Content Side (6 columns) */}
@@ -65,8 +65,9 @@ export default function ServicesShowcase({
             transition={{ duration: 0.6 }}
             className="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-center"
           >
-            <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-700 bg-white border-2 border-neo-black shadow-neo-sm px-3.5 py-1 rounded-full w-max mb-4">
-              ✨ Featured Digital Solution
+            <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-700 bg-white border-2 border-neo-black shadow-neo-sm px-3.5 py-1.5 rounded-full w-max mb-4">
+              <Sparkles size={15} className="text-amber-500 fill-amber-400 shrink-0" />
+              <span>Featured Digital Solution</span>
             </div>
 
             <h3 className="text-3xl md:text-4xl font-black text-neo-black mb-5 tracking-tight">
@@ -94,7 +95,7 @@ export default function ServicesShowcase({
             <div>
               <a
                 href={displayService.link || "#contact"}
-                className="inline-flex items-center justify-center gap-3 px-7 py-4 bg-[#FDE2CD] text-neo-black font-extrabold text-base rounded-2xl border-3 border-neo-black shadow-neo hover:bg-neo-lime hover:translate-y-[-2px] active:translate-y-[2px] active:shadow-none transition-all duration-200 w-max"
+                className="inline-flex items-center justify-center gap-3 px-7 py-4 bg-[#FDE2CD] text-neo-black font-extrabold text-base rounded-2xl border-3 border-neo-black shadow-neo hover:bg-neo-lime hover:translate-y-[-2px] active:translate-y-[2px] active:shadow-none transition-all duration-200 w-max group"
               >
                 <span>Pelajari Lebih Lanjut</span>
                 <ArrowRight size={18} strokeWidth={2.5} className="transition-transform group-hover:translate-x-1" />
@@ -102,7 +103,7 @@ export default function ServicesShowcase({
             </div>
           </motion.div>
 
-          {/* Illustration Side - Geometric Multi-layer Frame (Not a simple square) */}
+          {/* Illustration Side - Geometric Multi-layer Frame */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -123,10 +124,12 @@ export default function ServicesShowcase({
 
               {/* Decorative Geometric Badges Floating */}
               <div className="absolute top-4 left-4 w-12 h-12 bg-neo-blue rounded-2xl border-3 border-neo-black shadow-neo flex items-center justify-center rotate-[-12deg] z-20">
-                <span className="font-black text-white text-lg">💡</span>
+                <Lightbulb size={24} className="text-white fill-amber-300 stroke-[2]" />
               </div>
-              <div className="absolute bottom-6 right-6 px-4 py-2 bg-neo-lime border-3 border-neo-black rounded-xl shadow-neo font-extrabold text-xs text-neo-black rotate-[8deg] z-20 hidden sm:block">
-                🚀 #1 Solution
+              
+              <div className="absolute bottom-6 right-6 px-3.5 py-2 bg-neo-lime border-3 border-neo-black rounded-xl shadow-neo font-extrabold text-xs text-neo-black rotate-[8deg] z-20 hidden sm:inline-flex items-center gap-1.5">
+                <Rocket size={15} className="text-neo-blue fill-neo-blue/20 shrink-0 stroke-[2.5]" />
+                <span>#1 Solution</span>
               </div>
 
               {/* Main Illustration Content */}

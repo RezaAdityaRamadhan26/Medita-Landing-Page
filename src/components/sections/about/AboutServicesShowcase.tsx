@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { mockLandingPage } from "@/data/mock";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight, Star } from "lucide-react";
 
 export default function AboutServicesShowcase() {
   const { service_title, service_description, service_cards } = mockLandingPage;
@@ -47,8 +47,9 @@ export default function AboutServicesShowcase() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-center"
           >
-            <span className="inline-block text-xs font-black text-neo-black bg-[#DCE399] border-2 border-neo-black shadow-neo-sm uppercase tracking-wider px-3 py-1 rounded-full w-max mb-4">
-              🌟 Primary Specialty
+            <span className="inline-flex items-center gap-2 text-xs font-black text-neo-black bg-[#DCE399] border-2 border-neo-black shadow-neo-sm uppercase tracking-wider px-3 py-1.5 rounded-full w-max mb-4">
+              <Star size={15} className="text-amber-600 fill-amber-500 shrink-0" />
+              <span>Primary Specialty</span>
             </span>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-neo-black mb-5 leading-[1.15]">
               {service_cards[0].title}
