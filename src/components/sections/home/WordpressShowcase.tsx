@@ -64,7 +64,7 @@ export default function WordpressShowcase() {
             </div>
           </motion.div>
 
-          {/* WordPress Layered Geometric Illustration with ~30 degree hover tilt */}
+          {/* WordPress Layered Geometric Illustration with opposite tilt scissor effect */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -74,29 +74,26 @@ export default function WordpressShowcase() {
           >
             <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center p-6 sm:p-10 group cursor-pointer">
               
-              {/* Angled Backdrop Layer - ~30 degree spin on hover */}
-              <div className="absolute inset-2 sm:inset-4 bg-neo-blue/25 border-3 border-neo-black rounded-[36px] shadow-neo rotate-[-5deg] transition-transform duration-1000 ease-out group-hover:rotate-[28deg] sm:group-hover:scale-[1.03]" />
+              {/* Rearmost Layer - Tilts & spins LEFT (-28 deg on hover) */}
+              <div className="absolute inset-4 bg-neo-blue/25 border-3 border-neo-black rounded-[36px] shadow-neo -rotate-[6deg] transition-transform duration-[1200ms] ease-out group-hover:-rotate-[28deg] sm:group-hover:scale-[1.03]" />
 
-              {/* Front Plate Layer */}
-              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] rotate-[3deg] transition-transform duration-700 ease-out group-hover:-rotate-[6deg] overflow-hidden flex items-center justify-center">
+              {/* White Box + Image Layer - Tilts & spins RIGHT (+26 deg on hover) */}
+              <div className="relative z-10 w-full h-full bg-white border-3 border-neo-black rounded-[32px] shadow-neo rotate-[5deg] transition-transform duration-[1000ms] ease-out group-hover:rotate-[26deg] overflow-hidden flex items-center justify-center p-6 sm:p-8 sm:group-hover:scale-[1.03]">
                 <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#1A1A1A_1px,transparent_1px)] [background-size:18px_18px]" />
-              </div>
-
-              {/* Decorative Pill */}
-              <div className="absolute top-3 right-4 px-3.5 py-2 bg-[#FF7F50] text-white border-3 border-neo-black rounded-full shadow-neo font-black text-xs rotate-[6deg] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2deg] z-20 inline-flex items-center gap-1.5">
-                <Award size={15} className="text-white fill-white/20 shrink-0 stroke-[2.5]" />
-                <span>Top CMS</span>
-              </div>
-
-              {/* Image */}
-              <div className="relative z-10 w-full flex items-center justify-center">
+                
                 <Image 
                   src="/illustrations/service-wordpress.webp" 
                   alt="Wordpress" 
                   width={450} 
                   height={450} 
-                  className="w-full h-auto max-h-[370px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl transition-transform duration-500 group-hover:scale-[1.04]" 
+                  className="w-full h-auto max-h-[350px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl relative z-10" 
                 />
+              </div>
+
+              {/* Decorative Pill */}
+              <div className="absolute top-3 right-4 px-3.5 py-2 bg-[#FF7F50] text-white border-3 border-neo-black rounded-full shadow-neo font-black text-xs rotate-[6deg] transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-[2deg] z-20 inline-flex items-center gap-1.5">
+                <Award size={15} className="text-white fill-white/20 shrink-0 stroke-[2.5]" />
+                <span>Top CMS</span>
               </div>
 
             </div>

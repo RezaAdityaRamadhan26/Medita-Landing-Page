@@ -103,7 +103,7 @@ export default function ServicesShowcase({
             </div>
           </motion.div>
 
-          {/* Illustration Side - Subtle ~30 Degree Hover Tilt & Rotation */}
+          {/* Illustration Side - Scissor Rotation Effect (Back Left, Front & Image Right) */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -113,33 +113,32 @@ export default function ServicesShowcase({
           >
             <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center p-6 sm:p-10 group cursor-pointer">
               
-              {/* Layer 1: Angled Background Accent Plane - Gently rotates around 28 degrees on hover */}
-              <div className="absolute inset-2 sm:inset-4 bg-[#FDE2CD] border-3 border-neo-black rounded-[36px] shadow-neo rotate-[4deg] transition-transform duration-1000 ease-out group-hover:rotate-[28deg] sm:group-hover:scale-[1.03]" />
+              {/* Layer 1: Rearmost Background Box (Paling Belakang) - Tilts LEFT & spins to -28 deg on hover */}
+              <div className="absolute inset-4 bg-[#FDE2CD] border-3 border-neo-black rounded-[36px] shadow-neo -rotate-[6deg] transition-transform duration-[1200ms] ease-out group-hover:-rotate-[28deg] sm:group-hover:scale-[1.04]" />
 
-              {/* Layer 2: Offset Geometric Pattern / Grid Plate - Subtle complementary pivot to 7 degrees */}
-              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] -rotate-[3deg] transition-transform duration-700 ease-out group-hover:rotate-[7deg] overflow-hidden">
+              {/* Layer 2: White Box & Image (Kotak Putih & Gambar Mengikuti) - Tilts RIGHT & spins to +26 deg on hover */}
+              <div className="relative z-10 w-full h-full bg-white border-3 border-neo-black rounded-[32px] shadow-neo rotate-[5deg] transition-transform duration-[1000ms] ease-out group-hover:rotate-[26deg] overflow-hidden flex items-center justify-center p-6 sm:p-8 sm:group-hover:scale-[1.03]">
+                {/* Subtle Halftone Grid Texture Inside Plate */}
                 <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#1A1A1A_1px,transparent_1px)] [background-size:16px_16px]" />
-              </div>
 
-              {/* Decorative Geometric Badges Floating with gentle lift on hover */}
-              <div className="absolute top-4 left-4 w-12 h-12 bg-neo-blue rounded-2xl border-3 border-neo-black shadow-neo flex items-center justify-center rotate-[-12deg] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[-4deg] z-20">
-                <Lightbulb size={24} className="text-white fill-amber-300 stroke-[2]" />
-              </div>
-              
-              <div className="absolute bottom-6 right-6 px-3.5 py-2 bg-neo-lime border-3 border-neo-black rounded-xl shadow-neo font-extrabold text-xs text-neo-black rotate-[8deg] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[3deg] z-20 hidden sm:inline-flex items-center gap-1.5">
-                <Rocket size={15} className="text-neo-blue fill-neo-blue/20 shrink-0 stroke-[2.5]" />
-                <span>#1 Solution</span>
-              </div>
-
-              {/* Main Illustration Content */}
-              <div className="relative z-10 w-full flex items-center justify-center">
+                {/* Main Illustration Content (Mengikuti kotak putih) */}
                 <Image
                   src={displayService.image || "/our-services.svg"}
                   alt={displayService.title}
-                  width={500}
-                  height={500}
-                  className="w-full h-auto max-h-[380px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl transition-transform duration-500 group-hover:scale-[1.04]"
+                  width={480}
+                  height={480}
+                  className="w-full h-auto max-h-[350px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl relative z-10"
                 />
+              </div>
+
+              {/* Decorative Geometric Badges Floating */}
+              <div className="absolute top-4 left-4 w-12 h-12 bg-neo-blue rounded-2xl border-3 border-neo-black shadow-neo flex items-center justify-center rotate-[-12deg] transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-[-4deg] z-20">
+                <Lightbulb size={24} className="text-white fill-amber-300 stroke-[2]" />
+              </div>
+              
+              <div className="absolute bottom-6 right-6 px-3.5 py-2 bg-neo-lime border-3 border-neo-black rounded-xl shadow-neo font-extrabold text-xs text-neo-black rotate-[8deg] transition-transform duration-500 group-hover:-translate-y-2 group-hover:rotate-[3deg] z-20 hidden sm:inline-flex items-center gap-1.5">
+                <Rocket size={15} className="text-neo-blue fill-neo-blue/20 shrink-0 stroke-[2.5]" />
+                <span>#1 Solution</span>
               </div>
 
             </div>

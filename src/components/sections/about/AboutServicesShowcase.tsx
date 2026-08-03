@@ -36,7 +36,7 @@ export default function AboutServicesShowcase() {
           </div>
         </motion.div>
 
-        {/* Featured Service — WordPress (Layered Asymmetric Architecture with ~30 deg hover spin) */}
+        {/* Featured Service — WordPress (Opposing Left/Right Tilt Hover Animation) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-20">
           
           {/* Content Side */}
@@ -68,7 +68,7 @@ export default function AboutServicesShowcase() {
             </div>
           </motion.div>
 
-          {/* Layered Geometric Illustration Side with ~30 degree hover rotation */}
+          {/* Layered Illustration Side - Scissor Hover Spin */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -77,19 +77,18 @@ export default function AboutServicesShowcase() {
             className="lg:col-span-6 order-1 lg:order-2 flex items-center justify-center relative py-6"
           >
             <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center p-6 sm:p-10 group cursor-pointer">
-              {/* Back Layer - Slow ~30 deg rotation on hover */}
-              <div className="absolute inset-2 sm:inset-4 bg-neo-lime/40 border-3 border-neo-black rounded-[36px] shadow-neo rotate-[5deg] transition-transform duration-1000 ease-out group-hover:rotate-[30deg] sm:group-hover:scale-[1.03]" />
-              {/* Front Plate Layer */}
-              <div className="absolute inset-2 sm:inset-4 bg-white border-3 border-neo-black rounded-[32px] -rotate-[3deg] transition-transform duration-700 ease-out group-hover:rotate-[6deg] overflow-hidden">
+              {/* Back Layer - Tilts LEFT to -30 degrees on hover */}
+              <div className="absolute inset-4 bg-neo-lime/40 border-3 border-neo-black rounded-[36px] shadow-neo -rotate-[6deg] transition-transform duration-[1200ms] ease-out group-hover:-rotate-[30deg] sm:group-hover:scale-[1.03]" />
+              
+              {/* Front Plate + Image - Tilts RIGHT to +28 degrees on hover */}
+              <div className="relative z-10 w-full h-full bg-white border-3 border-neo-black rounded-[32px] shadow-neo rotate-[5deg] transition-transform duration-[1000ms] ease-out group-hover:rotate-[28deg] overflow-hidden flex items-center justify-center p-6 sm:p-8 sm:group-hover:scale-[1.03]">
                 <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#1A1A1A_1px,transparent_1px)] [background-size:16px_16px]" />
-              </div>
-              <div className="relative z-10 w-full flex items-center justify-center">
                 <Image 
                   src={service_cards[0].image} 
                   alt={service_cards[0].title} 
                   width={450} 
                   height={450} 
-                  className="w-full h-auto max-h-[380px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl transition-transform duration-500 group-hover:scale-[1.04]" 
+                  className="w-full h-auto max-h-[350px] object-contain drop-shadow-[6px_6px_0_#1A1A1A] rounded-2xl relative z-10" 
                 />
               </div>
             </div>
