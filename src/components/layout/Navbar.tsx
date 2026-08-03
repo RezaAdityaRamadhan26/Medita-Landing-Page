@@ -25,13 +25,13 @@ export default function Navbar({ siteName = "Medita Solusi Digital" }: { siteNam
           />
         </Link>
 
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Desktop Nav Links (Centered) */}
+        <div className="hidden lg:flex flex-1 justify-center items-center gap-8 px-6">
           {nav_links.map((link) => (
             <Link
               key={link.id}
               href={link.href}
-              className="text-sm font-medium text-primary-dark hover:text-primary-green transition-colors duration-200"
+              className="text-sm font-semibold text-primary-dark hover:text-primary-green transition-colors duration-200 py-1"
             >
               {link.label}
             </Link>
@@ -41,7 +41,7 @@ export default function Navbar({ siteName = "Medita Solusi Digital" }: { siteNam
         {/* CTA Button */}
         <Link
           href="#contact"
-          className="hidden md:inline-flex items-center gap-2 bg-neo-blue text-white text-sm font-semibold px-6 py-2.5 rounded-button border-2 border-neo-black shadow-neo hover:translate-y-[-2px] hover:shadow-neo-lg active:translate-y-[2px] active:shadow-none transition-all duration-200"
+          className="hidden lg:inline-flex items-center gap-2 bg-neo-blue text-white text-sm font-semibold px-6 py-2.5 rounded-button border-2 border-neo-black shadow-neo hover:translate-y-[-2px] hover:shadow-neo-lg active:translate-y-[2px] active:shadow-none transition-all duration-200 shrink-0"
         >
           <svg
             width="16"
@@ -60,7 +60,7 @@ export default function Navbar({ siteName = "Medita Solusi Digital" }: { siteNam
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex flex-col gap-1.5 p-2 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle mobile menu"
         >
