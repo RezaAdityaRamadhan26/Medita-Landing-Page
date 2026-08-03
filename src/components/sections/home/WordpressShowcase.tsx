@@ -64,7 +64,7 @@ export default function WordpressShowcase() {
             </div>
           </motion.div>
 
-          {/* WordPress Layered Geometric Illustration with opposite tilt scissor effect */}
+          {/* WordPress Layered Geometric Illustration with subtle opposing tilt */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -74,11 +74,11 @@ export default function WordpressShowcase() {
           >
             <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center p-6 sm:p-10 group cursor-pointer">
               
-              {/* Rearmost Layer - Tilts & spins LEFT (-28 deg on hover) */}
-              <div className="absolute inset-4 bg-neo-blue/25 border-3 border-neo-black rounded-[36px] shadow-neo -rotate-[6deg] transition-transform duration-[1200ms] ease-out group-hover:-rotate-[28deg] sm:group-hover:scale-[1.03]" />
+              {/* Rearmost Layer - Subtle tilt left (-3 deg to -11 deg on hover) */}
+              <div className="absolute inset-4 bg-neo-blue/25 border-3 border-neo-black rounded-[36px] shadow-neo -rotate-[3deg] transition-transform duration-[900ms] ease-out group-hover:-rotate-[11deg] sm:group-hover:scale-[1.02]" />
 
-              {/* White Box + Image Layer - Tilts & spins RIGHT (+26 deg on hover) */}
-              <div className="relative z-10 w-full h-full bg-white border-3 border-neo-black rounded-[32px] shadow-neo rotate-[5deg] transition-transform duration-[1000ms] ease-out group-hover:rotate-[26deg] overflow-hidden flex items-center justify-center p-6 sm:p-8 sm:group-hover:scale-[1.03]">
+              {/* White Box + Image Layer - Subtle tilt right (+2 deg to +8 deg on hover) */}
+              <div className="relative z-10 w-full h-full bg-white border-3 border-neo-black rounded-[32px] shadow-neo rotate-[2deg] transition-transform duration-[700ms] ease-out group-hover:rotate-[8deg] overflow-hidden flex items-center justify-center p-6 sm:p-8 sm:group-hover:scale-[1.02]">
                 <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#1A1A1A_1px,transparent_1px)] [background-size:18px_18px]" />
                 
                 <Image 
