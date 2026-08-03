@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import ServiceForm from "@/components/admin/ServiceForm";
+import ServiceForm from "@/components/admin/forms/ServiceForm";
 import { notFound } from "next/navigation";
 
 export default async function EditServicePage({ params }: { params: Promise<{ id: string }> }) {

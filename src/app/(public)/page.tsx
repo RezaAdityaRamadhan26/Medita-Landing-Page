@@ -1,10 +1,10 @@
-import HeroSection from "@/components/sections/HeroSection";
-import PartnerBanner from "@/components/sections/PartnerBanner";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import ServicesShowcase from "@/components/sections/ServicesShowcase";
-import PartnerSuccessStories from "@/components/sections/PartnerSuccessStories";
-import InsightfulArticles from "@/components/sections/InsightfulArticles";
-import ContactForm from "@/components/sections/ContactForm";
+import HeroSection from "@/components/sections/home/HeroSection";
+import PartnerBanner from "@/components/sections/home/PartnerBanner";
+import WhyChooseUs from "@/components/sections/shared/WhyChooseUs";
+import ServicesShowcase from "@/components/sections/shared/ServicesShowcase";
+import PartnerSuccessStories from "@/components/sections/home/PartnerSuccessStories";
+import InsightfulArticles from "@/components/sections/home/InsightfulArticles";
+import ContactForm from "@/components/sections/shared/ContactForm";
 import prisma from "@/lib/prisma";
 
 export const dynamic = 'force-dynamic';

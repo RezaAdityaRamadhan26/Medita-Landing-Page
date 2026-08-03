@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import AboutHero from "@/components/sections/AboutHero";
-import ValueProposition from "@/components/sections/ValueProposition";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import ServicesShowcase from "@/components/sections/ServicesShowcase";
-import ContactForm from "@/components/sections/ContactForm";
+import AboutHero from "@/components/sections/about/AboutHero";
+import ValueProposition from "@/components/sections/about/ValueProposition";
+import WhyChooseUs from "@/components/sections/shared/WhyChooseUs";
+import ServicesShowcase from "@/components/sections/shared/ServicesShowcase";
+import ContactForm from "@/components/sections/shared/ContactForm";
 
 export const metadata: Metadata = {
   title: "About Us | Medita Solusi Digital",

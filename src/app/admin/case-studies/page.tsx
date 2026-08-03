@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
-import DeleteCaseStudyButton from "./DeleteCaseStudyButton";
+import DeleteResourceButton from "@/components/admin/actions/DeleteResourceButton";
 
 export default async function AdminCaseStudiesPage() {
   const caseStudies = await prisma.caseStudy.findMany({
@@ -41,7 +41,7 @@ export default async function AdminCaseStudiesPage() {
                   >
                     Edit
                   </Link>
-                  <DeleteCaseStudyButton id={cs.id} />
+                  <DeleteResourceButton id={cs.id} resource="case-studies" resourceName="case study" />
                 </td>
               </tr>
             ))}

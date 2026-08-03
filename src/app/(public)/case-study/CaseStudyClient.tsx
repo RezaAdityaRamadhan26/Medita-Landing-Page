@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import BlogHero from "@/components/sections/BlogHero";
+import BlogHero from "@/components/sections/shared/BlogHero";
 import CategoryFilter from "@/components/ui/CategoryFilter";
 import CaseStudyCard from "@/components/cards/CaseStudyCard";
 import Pagination from "@/components/ui/Pagination";
-import ContactForm from "@/components/sections/ContactForm";
-import { mockCaseStudies } from "@/data/mock";
+import ContactForm from "@/components/sections/shared/ContactForm";
+import { CaseStudy } from "@/types";
 
 const ITEMS_PER_PAGE = 6;
 const caseStudyCategories = [
@@ -18,14 +18,18 @@ const caseStudyCategories = [
   "Website Revamp",
 ];
 
-export default function CaseStudyPage() {
+interface CaseStudyClientProps {
+  caseStudies: CaseStudy[];
+}
+
+export default function CaseStudyClient({ caseStudies }: CaseStudyClientProps) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredStudies =
     activeCategory === "All"
-      ? mockCaseStudies
-      : mockCaseStudies.filter((cs) =>
+      ? caseStudies
+      : caseStudies.filter((cs) =>
           cs.category_tag.toLowerCase().includes(activeCategory.toLowerCase().replace(" / ", "/"))
         );
 

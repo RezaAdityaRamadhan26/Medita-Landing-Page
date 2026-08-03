@@ -2,8 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Service } from "@prisma/client";
+import ImageUploadInput from "@/components/admin/ui/ImageUploadInput";
 
-export default function ServiceForm({ initialData }: { initialData?: any }) {
+interface ServiceFormProps {
+  initialData?: Service | null;
+}
+
+export default function ServiceForm({ initialData }: ServiceFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -40,7 +46,7 @@ export default function ServiceForm({ initialData }: { initialData?: any }) {
       } else {
         alert("Failed to save service");
       }
-    } catch (error) {
+    } catch {
       alert("Error submitting form");
     } finally {
       setLoading(false);
@@ -73,38 +79,32 @@ export default function ServiceForm({ initialData }: { initialData?: any }) {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-bold text-neo-black mb-2">Image URL (Illustration)</label>
+      <ImageUploadInput
+        label="Image (Illustration) - Saved to Service.image column & /uploads/services/ folder"
+        value={formData.image}
+        onChange={(url) => setFormData((prev) => ({ ...prev, image: url }))}
+        placeholder="/our-services.svg"
+        section="services"
+      />
+      
+      <div>
+        <label className="block text-sm font-bold text-neo-black mb-2">Background Color (Hex Code)</label>
+        <div className="flex gap-4 items-center max-w-sm">
+          <input
+            type="color"
+            name="color"
+            value={formData.color}
+            onChange={handleChange}
+            className="w-12 h-12 rounded-lg border-2 border-neo-black p-1 cursor-pointer"
+          />
           <input
             type="text"
-            name="image"
-            value={formData.image}
+            name="color"
+            value={formData.color}
             onChange={handleChange}
-            placeholder="/illustrations/service-seo.webp"
-            className="w-full px-4 py-3 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green"
+            placeholder="#FDE2CD"
+            className="flex-1 px-4 py-3 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green"
           />
-        </div>
-        
-        <div>
-          <label className="block text-sm font-bold text-neo-black mb-2">Background Color (Hex Code)</label>
-          <div className="flex gap-4 items-center">
-            <input
-              type="color"
-              name="color"
-              value={formData.color}
-              onChange={handleChange}
-              className="w-12 h-12 rounded-lg border-2 border-neo-black p-1 cursor-pointer"
-            />
-            <input
-              type="text"
-              name="color"
-              value={formData.color}
-              onChange={handleChange}
-              placeholder="#FDE2CD"
-              className="flex-1 px-4 py-3 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green"
-            />
-          </div>
         </div>
       </div>
 

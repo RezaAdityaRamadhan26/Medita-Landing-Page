@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Article } from "@prisma/client";
+import ImageUploadInput from "@/components/admin/ui/ImageUploadInput";
 
 interface ArticleFormProps {
   initialData?: Article | null;
@@ -55,7 +56,7 @@ export default function ArticleForm({ initialData }: ArticleFormProps) {
       } else {
         alert("Something went wrong!");
       }
-    } catch (error) {
+    } catch {
       alert("Error submitting form");
     } finally {
       setLoading(false);
@@ -128,17 +129,13 @@ export default function ArticleForm({ initialData }: ArticleFormProps) {
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-bold text-neo-black mb-2">Cover Image URL</label>
-        <input
-          type="text"
-          name="coverImage"
-          value={formData.coverImage}
-          onChange={handleChange}
-          placeholder="/blog-1.svg"
-          className="w-full px-4 py-3 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green"
-        />
-      </div>
+      <ImageUploadInput
+        label="Cover Image - Saved to Article.coverImage column & /uploads/articles/ folder"
+        value={formData.coverImage}
+        onChange={(url) => setFormData((prev) => ({ ...prev, coverImage: url }))}
+        placeholder="/blog-1.svg"
+        section="articles"
+      />
 
       <div>
         <label className="block text-sm font-bold text-neo-black mb-2">Excerpt (Short Description)</label>

@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { mockLandingPage } from "@/data/mock";
+import { ServiceCard } from "@/types";
 
 export default function ServicesShowcase({ 
   settings, 
   services 
 }: { 
   settings?: Record<string, string>,
-  services?: any[] 
+  services?: ServiceCard[] 
 }) {
   const service_title = settings?.service_title || mockLandingPage.service_title;
   const service_description = settings?.service_description || mockLandingPage.service_description;

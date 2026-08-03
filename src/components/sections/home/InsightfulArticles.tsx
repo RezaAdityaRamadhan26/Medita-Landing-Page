@@ -1,21 +1,25 @@
 import Button from "@/components/ui/Button";
-import CaseStudyCard from "@/components/cards/CaseStudyCard";
+import ArticleCard from "@/components/cards/ArticleCard";
 import prisma from "@/lib/prisma";
+import { Article } from "@/types";
 
-export default async function PartnerSuccessStories() {
-  const dbCaseStudies = await prisma.caseStudy.findMany({
+export default async function InsightfulArticles() {
+  const dbArticles = await prisma.article.findMany({
     orderBy: { createdAt: "desc" },
     take: 3,
   });
 
-  const displayedCaseStudies = dbCaseStudies.map(cs => ({
-    id: cs.id,
-    title: cs.title,
-    slug: cs.slug,
-    category_tag: cs.categoryTag,
-    summary: cs.summary,
-    thumbnail: cs.thumbnail || "",
-    link: cs.link || undefined,
+  // Map to the shape ArticleCard expects
+  const displayedArticles: Article[] = dbArticles.map(a => ({
+    id: a.id,
+    title: a.title,
+    slug: a.slug,
+    cover_image: a.coverImage || "",
+    category: a.category,
+    read_time: a.readTime,
+    content: a.content,
+    publishedAt: a.publishedAt.toISOString().split('T')[0],
+    excerpt: a.excerpt,
   }));
 
   return (
@@ -23,7 +27,7 @@ export default async function PartnerSuccessStories() {
       <div className="container-main px-4 lg:px-8">
         <div className="flex justify-between items-center mb-8">
           <span className="text-sm font-bold text-neo-blue">
-            Case Study
+            Blog
           </span>
           <Button href="#" variant="secondary" size="md" className="bg-[#DCE399]">
             Explore More
@@ -33,8 +37,8 @@ export default async function PartnerSuccessStories() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Left Column */}
           <div className="lg:col-span-4 flex flex-col justify-between">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-neo-black leading-[1.2] mb-8">
-              Explore more about our partner success stories
+            <h2 className="text-3xl md:text-4xl lg:text-[40px] font-extrabold text-neo-black leading-[1.2] mb-8">
+              Your time is valuable. Read our insightful article within 5 minutes.
             </h2>
             <div className="flex gap-4">
               <button className="w-12 h-12 rounded-full bg-neo-blue border-2 border-neo-black flex items-center justify-center shadow-neo hover:translate-y-[-2px] transition-all">
@@ -49,9 +53,9 @@ export default async function PartnerSuccessStories() {
           {/* Right Column - Slider */}
           <div className="lg:col-span-8 overflow-hidden">
             <div className="flex gap-6 overflow-x-auto pb-4 snap-x hide-scrollbar">
-              {displayedCaseStudies.map((cs) => (
-                <div key={cs.id} className="min-w-[280px] w-full md:min-w-[320px] lg:min-w-[350px] max-w-[350px] snap-center shrink-0">
-                  <CaseStudyCard caseStudy={cs as any} />
+              {displayedArticles.map((article) => (
+                <div key={article.id} className="min-w-[280px] w-full md:min-w-[320px] lg:min-w-[350px] max-w-[350px] snap-center shrink-0">
+                  <ArticleCard article={article} />
                 </div>
               ))}
             </div>

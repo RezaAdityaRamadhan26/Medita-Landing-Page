@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import CTABanner from "@/components/layout/CTABanner";
 import "./globals.css";
-import prisma from "@/lib/prisma";
-
-export const dynamic = 'force-dynamic';
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -28,25 +22,17 @@ export const metadata: Metadata = {
   ],
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settingsList = await prisma.setting.findMany();
-  const settings = settingsList.reduce((acc, curr) => {
-    acc[curr.key] = curr.value;
-    return acc;
-  }, {} as Record<string, string>);
-
   return (
     <html lang="id" className={outfit.variable}>
-      <body className={`${outfit.className} pt-[72px]`}>
-        <Navbar siteName={settings.site_name} />
-        <main>{children}</main>
-        <CTABanner />
-        <Footer />
+      <body className={`${outfit.className} bg-white text-neo-black antialiased`}>
+        {children}
       </body>
     </html>
   );
 }
+

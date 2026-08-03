@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
+import DeleteResourceButton from "@/components/admin/actions/DeleteResourceButton";
 
 export default async function AdminServicesPage() {
   const services = await prisma.service.findMany({
@@ -42,16 +43,18 @@ export default async function AdminServicesPage() {
                   </td>
                   <td className="p-4 text-neo-black border-r-2 border-neo-black">
                     <div className="w-16 h-12 bg-slate-100 border-2 border-neo-black rounded overflow-hidden relative">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={service.image} alt="service" className="w-full h-full object-contain" />
                     </div>
                   </td>
-                  <td className="p-4 text-center">
+                  <td className="p-4 flex gap-2 justify-center items-center">
                     <Link
                       href={`/admin/services/${service.id}`}
-                      className="text-sm font-bold text-neo-blue hover:underline"
+                      className="py-1 px-3 bg-neo-blue text-white text-sm font-bold rounded-md border-2 border-neo-black hover:bg-blue-600 transition-colors"
                     >
                       Edit
                     </Link>
+                    <DeleteResourceButton id={service.id} resource="services" resourceName="service" />
                   </td>
                 </tr>
               ))}

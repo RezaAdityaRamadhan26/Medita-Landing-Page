@@ -1,5 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -14,6 +17,10 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const body = await req.json();
     const service = await prisma.service.create({
       data: {
@@ -24,6 +31,7 @@ export async function POST(req: NextRequest) {
         color: body.color,
       },
     });
+    revalidatePath("/", "layout");
     return NextResponse.json(service, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create service" }, { status: 500 });

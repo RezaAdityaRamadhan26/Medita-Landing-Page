@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CaseStudy } from "@prisma/client";
+import ImageUploadInput from "@/components/admin/ui/ImageUploadInput";
 
 interface CaseStudyFormProps {
   initialData?: CaseStudy | null;
@@ -51,7 +52,7 @@ export default function CaseStudyForm({ initialData }: CaseStudyFormProps) {
       } else {
         alert("Something went wrong!");
       }
-    } catch (error) {
+    } catch {
       alert("Error submitting form");
     } finally {
       setLoading(false);
@@ -86,31 +87,26 @@ export default function CaseStudyForm({ initialData }: CaseStudyFormProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-bold text-neo-black mb-2">Category Tag</label>
-          <input
-            type="text"
-            name="categoryTag"
-            value={formData.categoryTag}
-            onChange={handleChange}
-            required
-            placeholder="e.g. Website Custom Development"
-            className="w-full px-4 py-3 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-bold text-neo-black mb-2">Thumbnail URL</label>
-          <input
-            type="text"
-            name="thumbnail"
-            value={formData.thumbnail}
-            onChange={handleChange}
-            placeholder="/case-study-1.svg"
-            className="w-full px-4 py-3 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green"
-          />
-        </div>
+      <div>
+        <label className="block text-sm font-bold text-neo-black mb-2">Category Tag</label>
+        <input
+          type="text"
+          name="categoryTag"
+          value={formData.categoryTag}
+          onChange={handleChange}
+          required
+          placeholder="e.g. Website Custom Development"
+          className="w-full px-4 py-3 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green"
+        />
       </div>
+
+      <ImageUploadInput
+        label="Thumbnail Image - Saved to CaseStudy.thumbnail column & /uploads/case-studies/ folder"
+        value={formData.thumbnail}
+        onChange={(url) => setFormData((prev) => ({ ...prev, thumbnail: url }))}
+        placeholder="/case-study-1.svg"
+        section="case-studies"
+      />
 
       <div>
         <label className="block text-sm font-bold text-neo-black mb-2">Summary</label>

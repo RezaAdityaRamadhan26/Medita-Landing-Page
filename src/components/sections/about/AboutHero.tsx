@@ -23,9 +23,7 @@ export default function AboutHero({ badge, title, description }: AboutHeroProps)
               {badge}
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-extrabold text-neo-black leading-[1.1] mb-6">
-              Grow<br />
-              Creatively<br />
-              With Us
+              {title}
             </h1>
           </motion.div>
 

@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import SettingsForm from "./SettingsForm";
+import SettingsForm from "@/components/admin/forms/SettingsForm";
 
 export default async function AdminSettingsPage() {
   const settings = await prisma.setting.findMany();

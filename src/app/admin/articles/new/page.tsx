@@ -1,4 +1,4 @@
-import ArticleForm from "@/components/admin/ArticleForm";
+import ArticleForm from "@/components/admin/forms/ArticleForm";
 
 export default function NewArticlePage() {
   return (

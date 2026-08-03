@@ -1,25 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import BlogHero from "@/components/sections/BlogHero";
+import BlogHero from "@/components/sections/shared/BlogHero";
 import CategoryFilter from "@/components/ui/CategoryFilter";
 import ArticleCardFeatured from "@/components/cards/ArticleCardFeatured";
 import ArticleCard from "@/components/cards/ArticleCard";
 import Pagination from "@/components/ui/Pagination";
-import ContactForm from "@/components/sections/ContactForm";
-import { mockArticles } from "@/data/mock";
+import ContactForm from "@/components/sections/shared/ContactForm";
+import { Article } from "@/types";
 
 const ITEMS_PER_PAGE = 3;
 const blogCategories = ["All", "Website Branding", "Digital Marketing"];
 
-export default function BlogPage() {
+interface BlogClientProps {
+  articles: Article[];
+}
+
+export default function BlogClient({ articles }: BlogClientProps) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredArticles =
     activeCategory === "All"
-      ? mockArticles
-      : mockArticles.filter((a) => a.category === activeCategory);
+      ? articles
+      : articles.filter((a) => a.category === activeCategory);
 
   const totalPages = Math.ceil(
     Math.max(filteredArticles.length - 1, 0) / ITEMS_PER_PAGE

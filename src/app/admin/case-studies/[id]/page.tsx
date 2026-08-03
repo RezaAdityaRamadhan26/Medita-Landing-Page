@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import CaseStudyForm from "@/components/admin/CaseStudyForm";
+import CaseStudyForm from "@/components/admin/forms/CaseStudyForm";
 import { notFound } from "next/navigation";
 
 export default async function EditCaseStudyPage({ params }: { params: Promise<{ id: string }> }) {

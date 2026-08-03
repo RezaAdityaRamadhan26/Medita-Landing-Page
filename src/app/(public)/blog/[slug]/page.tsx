@@ -1,16 +1,11 @@
 import Link from "next/link";
 import Badge from "@/components/ui/Badge";
 import ArticleCard from "@/components/cards/ArticleCard";
-import { mockArticles } from "@/data/mock";
+import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-// Generate static params for all articles
-export async function generateStaticParams() {
-  return mockArticles.map((article) => ({
-    slug: article.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 // Dynamic metadata
 export async function generateMetadata({
@@ -19,12 +14,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = mockArticles.find((a) => a.slug === slug);
+  const article = await prisma.article.findUnique({ where: { slug } });
   if (!article) return { title: "Article Not Found" };
 
   return {
     title: `${article.title} | Medita Blog`,
-    description: article.excerpt,
+    description: article.excerpt || undefined,
   };
 }
 
@@ -57,19 +52,46 @@ export default async function BlogDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = mockArticles.find((a) => a.slug === slug);
+  const dbArticle = await prisma.article.findUnique({ where: { slug } });
 
-  if (!article) {
+  if (!dbArticle) {
     notFound();
   }
 
-  // Popular topics from article categories
-  const popularTopics = [...new Set(mockArticles.map((a) => a.category))];
+  const article = {
+    id: dbArticle.id,
+    title: dbArticle.title,
+    slug: dbArticle.slug,
+    cover_image: dbArticle.coverImage || "",
+    category: dbArticle.category || "General",
+    read_time: dbArticle.readTime || "5 min read",
+    content: dbArticle.content || "",
+    publishedAt: dbArticle.publishedAt ? dbArticle.publishedAt.toISOString() : new Date().toISOString(),
+    excerpt: dbArticle.excerpt || "",
+  };
 
-  // Related articles (same category, exclude current)
-  const relatedArticles = mockArticles
-    .filter((a) => a.category === article.category && a.id !== article.id)
-    .slice(0, 2);
+  const allArticles = await prisma.article.findMany();
+  const popularTopics = [...new Set(allArticles.map((a) => a.category).filter(Boolean))] as string[];
+
+  const dbRelated = await prisma.article.findMany({
+    where: {
+      category: article.category,
+      id: { not: article.id },
+    },
+    take: 2,
+  });
+
+  const relatedArticles = dbRelated.map((a) => ({
+    id: a.id,
+    title: a.title,
+    slug: a.slug,
+    cover_image: a.coverImage || "",
+    category: a.category || "General",
+    read_time: a.readTime || "5 min read",
+    content: a.content || "",
+    publishedAt: a.publishedAt ? a.publishedAt.toISOString() : new Date().toISOString(),
+    excerpt: a.excerpt || "",
+  }));
 
   return (
     <>
