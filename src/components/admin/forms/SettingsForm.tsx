@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Save } from "lucide-react";
 
 interface SettingsFormProps {
   initialData: Record<string, string>;
@@ -37,7 +38,7 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
       } else {
         alert("Something went wrong!");
       }
-    } catch (error) {
+    } catch {
       alert("Error submitting form");
     } finally {
       setLoading(false);
@@ -188,13 +189,14 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
         </div>
       </div>
 
-      <div className="flex justify-end gap-4 sticky bottom-6">
+      <div className="flex justify-end gap-4 sticky bottom-6 z-30">
         <button
           type="submit"
           disabled={loading}
-          className="px-8 py-4 font-bold text-white bg-primary-green rounded-full border-2 border-neo-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all disabled:opacity-70 text-lg"
+          className="px-8 py-3.5 font-extrabold text-white bg-primary-green rounded-full border-2 border-neo-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all disabled:opacity-70 text-base flex items-center gap-2.5"
         >
-          {loading ? "Saving..." : "Save All Settings"}
+          <Save size={20} strokeWidth={2.5} />
+          <span>{loading ? "Saving..." : "Save All Settings"}</span>
         </button>
       </div>
     </form>

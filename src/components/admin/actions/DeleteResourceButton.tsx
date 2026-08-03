@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Trash2 } from "lucide-react";
 
 interface DeleteResourceButtonProps {
   id: number | string;
@@ -30,7 +31,7 @@ export default function DeleteResourceButton({
       } else {
         alert(`Failed to delete ${resourceName}.`);
       }
-    } catch (error) {
+    } catch {
       alert(`Error deleting ${resourceName}.`);
     } finally {
       setIsDeleting(false);
@@ -41,9 +42,10 @@ export default function DeleteResourceButton({
     <button
       onClick={handleDelete}
       disabled={isDeleting}
-      className="py-1 px-3 bg-red-100 text-red-600 text-sm font-bold rounded-md border-2 border-neo-black hover:bg-red-200 transition-colors disabled:opacity-50"
+      className="py-1 px-3 bg-red-100 text-red-600 text-xs font-bold rounded-md border-2 border-neo-black hover:bg-red-200 transition-colors disabled:opacity-50 inline-flex items-center gap-1"
     >
-      {isDeleting ? "Deleting..." : "Delete"}
+      <Trash2 size={13} strokeWidth={2.5} />
+      <span>{isDeleting ? "Deleting..." : "Delete"}</span>
     </button>
   );
 }

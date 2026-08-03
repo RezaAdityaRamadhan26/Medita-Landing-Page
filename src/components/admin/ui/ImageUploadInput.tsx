@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { Upload, X, Trash2 } from "lucide-react";
 
 interface ImageUploadInputProps {
   label: string;
@@ -62,10 +63,11 @@ export default function ImageUploadInput({ label, value, onChange, placeholder, 
           <button
             type="button"
             onClick={() => onChange("")}
-            className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full border border-neo-black shadow text-xs font-bold px-2 hover:bg-red-600 transition-all"
+            className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-md border border-neo-black shadow text-xs font-bold flex items-center gap-1 hover:bg-red-600 transition-all"
             title="Remove image"
           >
-            ✕ Remove
+            <Trash2 size={13} strokeWidth={2.5} />
+            <span>Remove</span>
           </button>
         </div>
       )}
@@ -83,14 +85,10 @@ export default function ImageUploadInput({ label, value, onChange, placeholder, 
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="px-4 py-3 bg-neo-lime text-neo-black font-bold rounded-lg border-2 border-neo-black shadow-neo-sm hover:bg-[#DCE399] transition-all flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-50 cursor-pointer"
+          className="px-4 py-2.5 bg-neo-lime text-neo-black font-bold text-sm rounded-lg border-2 border-neo-black shadow-neo-sm hover:bg-[#DCE399] transition-all flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-50 cursor-pointer"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="17 8 12 3 7 8" />
-            <line x1="12" y1="3" x2="12" y2="15" />
-          </svg>
-          {uploading ? "Uploading..." : "Upload from Computer"}
+          <Upload size={18} strokeWidth={2.5} />
+          <span>{uploading ? "Uploading..." : "Upload from Computer"}</span>
         </button>
 
         <span className="text-sm font-bold text-neutral-muted text-center sm:text-left">or enter URL:</span>
@@ -100,7 +98,7 @@ export default function ImageUploadInput({ label, value, onChange, placeholder, 
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder || "/illustrations/sample.svg"}
-          className="flex-1 px-4 py-3 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green text-sm"
+          className="flex-1 px-4 py-2.5 rounded-lg border-2 border-neo-black focus:outline-none focus:ring-2 focus:ring-primary-green text-sm font-semibold"
         />
       </div>
 

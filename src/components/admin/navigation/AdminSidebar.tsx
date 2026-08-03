@@ -12,7 +12,8 @@ import {
   Globe, 
   Menu, 
   X, 
-  ExternalLink 
+  ExternalLink,
+  User 
 } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 
@@ -77,8 +78,9 @@ export default function AdminSidebar({ userName }: { userName: string | null | u
               <span className="w-3 h-3 rounded-full bg-neo-blue border border-neo-black" />
               <h2 className="text-xl font-extrabold text-neo-black tracking-wide">ADMIN PANEL</h2>
             </div>
-            <p className="text-xs font-bold text-slate-600 truncate max-w-[180px]">
-              👤 {userName ? `Hi, ${userName}` : "Welcome, Admin"}
+            <p className="flex items-center gap-1.5 text-xs font-bold text-slate-600 truncate max-w-[180px]">
+              <User size={14} className="text-slate-500 shrink-0" />
+              <span>{userName ? `Hi, ${userName}` : "Welcome, Admin"}</span>
             </p>
           </div>
           <button

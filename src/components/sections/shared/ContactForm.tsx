@@ -5,6 +5,7 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { mockLandingPage } from "@/data/mock";
 import dynamic from "next/dynamic";
+import { MessageCircle, AlertTriangle, ShieldCheck, CheckCircle } from "lucide-react";
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
 
@@ -91,8 +92,9 @@ export default function ContactForm() {
                     className="w-full h-auto max-w-[230px] object-contain drop-shadow-[3px_3px_0_#1A1A1A]" 
                   />
                 </div>
-                <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-white border-2 border-neo-black rounded-full shadow-neo-sm mt-2 text-neo-black">
-                  💬 Konsultasi Gratis
+                <span className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest px-3.5 py-1.5 bg-white border-2 border-neo-black rounded-full shadow-neo-sm mt-2 text-neo-black">
+                  <MessageCircle size={15} className="text-neo-blue shrink-0 fill-neo-blue/20" />
+                  <span>Konsultasi Gratis</span>
                 </span>
               </div>
             </div>
@@ -110,10 +112,7 @@ export default function ContactForm() {
 
               {isSubmitted ? (
                 <div className="bg-neo-lime text-neo-black border-2 border-neo-black p-6 rounded-xl shadow-neo text-center my-4">
-                  <svg className="w-10 h-10 mx-auto mb-2 text-primary-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
+                  <CheckCircle size={44} className="mx-auto mb-2 text-primary-green stroke-[2.5]" />
                   <p className="font-extrabold text-base mb-1">Pesan Berhasil Terkirim!</p>
                   <p className="text-xs font-semibold text-slate-700">Terima kasih! Tim kami akan segera meninjau pesan Anda dan membalas ke email Anda.</p>
                 </div>
@@ -121,7 +120,7 @@ export default function ContactForm() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {errorMsg && (
                     <div className="p-3 bg-[#FFCCD5] border-2 border-neo-black text-[#80001B] rounded-xl text-xs font-bold shadow-neo-sm flex items-center gap-2">
-                      <span>⚠️</span>
+                      <AlertTriangle size={18} className="text-[#80001B] shrink-0" />
                       <span className="flex-1">{errorMsg}</span>
                     </div>
                   )}
@@ -206,8 +205,9 @@ export default function ContactForm() {
                           />
                         </div>
                       ) : (
-                        <div className="text-[11px] font-semibold bg-white border-2 border-dashed border-slate-400 px-3 py-2 rounded-xl text-slate-600 max-w-xs">
-                          🔒 <strong>reCAPTCHA Ready</strong>
+                        <div className="inline-flex items-center gap-2 text-[11px] font-bold bg-white border-2 border-dashed border-slate-400 px-3 py-2 rounded-xl text-slate-600 max-w-xs">
+                          <ShieldCheck size={16} className="text-emerald-600 shrink-0" />
+                          <span>reCAPTCHA Ready</span>
                         </div>
                       )}
                     </div>
