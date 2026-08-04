@@ -85,12 +85,21 @@ export async function POST(req: NextRequest) {
         </div>
       `;
 
+      const textContent = `Pesan Konsultasi Baru dari ${name}\n\nEmail: ${email}\nLayanan Diminta: ${service}\nIP Address: ${ipAddress}\n\nIsi Pesan:\n${message}`;
+
       const mailOptions = {
         from: `"${name}" <${smtpUser}>`,
         replyTo: email,
         to: "meditasolusi@gmail.com",
         subject: `[Website Lead] ${service} - dari ${name}`,
+        text: textContent,
         html: htmlContent,
+        headers: {
+          "X-Entity-Ref-ID": `medita-contact-${Date.now()}`,
+          "X-Priority": "1",
+          "Importance": "high",
+          "Date": new Date().toUTCString(),
+        },
       };
 
       // 1. Percobaan Pertama: Jalur Port 465 (SMTPS SSL Modern)

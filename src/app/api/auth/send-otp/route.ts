@@ -85,11 +85,21 @@ export async function POST(req: NextRequest) {
         </div>
       `;
 
+      const textContent = `Halo ${user.name || "Tim Medita"},\n\nAda percobaan login baru ke halaman admin Medita Solusi Digital menggunakan email ${email}.\n\nGunakan 6 angka di bawah ini untuk menyelesaikan proses login:\n\nKODE VERIFIKASI: ${otpCode}\n\nKode ini aktif selama 10 menit ke depan. Kalau kamu tidak merasa melakukan login ini, kamu bisa abaikan email ini atau segera ganti password akunmu untuk keamanan.\n\nSalam hangat,\nTim Medita Solusi Digital`;
+
       const mailOptions = {
         from: `"Medita Solusi Digital" <${smtpUser}>`,
+        replyTo: smtpUser,
         to: email,
         subject: `Kode Verifikasi Login (${otpCode}) - Medita Solusi Digital`,
+        text: textContent,
         html: htmlContent,
+        headers: {
+          "X-Entity-Ref-ID": `medita-otp-${Date.now()}`,
+          "X-Priority": "1",
+          "Importance": "high",
+          "Date": new Date().toUTCString(),
+        },
       };
 
       const primaryTransporter = nodemailer.createTransport({
