@@ -76,9 +76,9 @@ export default async function Footer() {
               <Image 
                 src="/logo-header.svg" 
                 alt={site_name || "Medita Solusi Digital"} 
-                width={240} 
-                height={110} 
-                className="h-[64px] md:h-[76px] w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]" 
+                width={200} 
+                height={90} 
+                className="h-[48px] md:h-[56px] w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]" 
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-md mt-4">

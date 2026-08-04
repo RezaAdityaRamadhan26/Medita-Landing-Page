@@ -12,21 +12,21 @@ export default function Navbar({ siteName = "Medita Solusi Digital" }: { siteNam
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-nav">
-      <div className="container-main flex items-center justify-between h-[76px] md:h-[84px] px-4 lg:px-8">
+      <div className="container-main flex items-center justify-between h-[74px] md:h-[78px] px-4 lg:px-8 relative">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0 py-1">
+        <Link href="/" className="flex items-center gap-2 shrink-0 z-10">
           <Image 
             src="/logo-header.svg" 
             alt={siteName} 
-            width={200} 
-            height={90} 
+            width={160} 
+            height={70} 
             priority
-            className="h-[52px] sm:h-[58px] md:h-[66px] w-auto object-contain transition-transform duration-200 hover:scale-[1.03]" 
+            className="h-[40px] md:h-[48px] w-auto object-contain transition-transform duration-200 hover:scale-[1.03]" 
           />
         </Link>
 
-        {/* Desktop Nav Links (Centered) */}
-        <div className="hidden lg:flex flex-1 justify-center items-center gap-8 px-6">
+        {/* Desktop Nav Links (Absolutely & Perfectly Centered) */}
+        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 xl:gap-10">
           {nav_links.map((link) => (
             <Link
               key={link.id}
