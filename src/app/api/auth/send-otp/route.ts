@@ -94,25 +94,27 @@ export async function POST(req: NextRequest) {
 
       const primaryTransporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        requireTLS: true,
+        port: 465,
+        secure: true,
         auth: { user: smtpUser, pass: smtpPass },
         connectionTimeout: 10000,
       });
 
       try {
-        await primaryTransporter.sendMail(mailOptions);
+        const info = await primaryTransporter.sendMail(mailOptions);
+        console.log(`✅ [2FA Email Sent] Sukses dikirim via Port 465 ke ${email} (ID: ${info.messageId})`);
       } catch (primaryErr) {
-        console.warn("Jalur Port 587 gagal, mencoba jalur cadangan Port 465 (SSL)...", primaryErr);
+        console.warn("Jalur Port 465 terputus, mencoba jalur cadangan Port 587 (STARTTLS)...", primaryErr);
         const backupTransporter = nodemailer.createTransport({
           host: "smtp.gmail.com",
-          port: 465,
-          secure: true,
+          port: 587,
+          secure: false,
+          requireTLS: true,
           auth: { user: smtpUser, pass: smtpPass },
           connectionTimeout: 10000,
         });
-        await backupTransporter.sendMail(mailOptions);
+        const info = await backupTransporter.sendMail(mailOptions);
+        console.log(`✅ [2FA Email Sent] Sukses dikirim via Port 587 ke ${email} (ID: ${info.messageId})`);
       }
     } else {
       console.log(`[Dev Mode - Tanpa SMTP_PASS di .env] Email simulasi ke ${email}: Kode Anda adalah ${otpCode}`);

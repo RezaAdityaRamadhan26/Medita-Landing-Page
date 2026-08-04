@@ -93,12 +93,11 @@ export async function POST(req: NextRequest) {
         html: htmlContent,
       };
 
-      // 1. Percobaan Pertama: Jalur Port 587 (STARTTLS Modern)
+      // 1. Percobaan Pertama: Jalur Port 465 (SMTPS SSL Modern)
       const primaryTransporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        requireTLS: true,
+        port: 465,
+        secure: true,
         auth: { user: smtpUser, pass: smtpPass },
         connectionTimeout: 10000,
       });
@@ -106,12 +105,13 @@ export async function POST(req: NextRequest) {
       try {
         await primaryTransporter.sendMail(mailOptions);
       } catch (primaryErr) {
-        console.warn("Jalur Port 587 terputus/terblokir, beralih ke jalur cadangan Port 465 (SMTPS SSL)...", primaryErr);
-        // 2. Percobaan Cadangan Otomatis: Jalur Port 465 (SSL)
+        console.warn("Jalur Port 465 terputus, beralih ke jalur cadangan Port 587 (STARTTLS)...", primaryErr);
+        // 2. Percobaan Cadangan Otomatis: Jalur Port 587 (STARTTLS)
         const backupTransporter = nodemailer.createTransport({
           host: "smtp.gmail.com",
-          port: 465,
-          secure: true,
+          port: 587,
+          secure: false,
+          requireTLS: true,
           auth: { user: smtpUser, pass: smtpPass },
           connectionTimeout: 10000,
         });
