@@ -12,16 +12,16 @@ export default function Navbar({ siteName = "Medita Solusi Digital" }: { siteNam
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-nav">
-      <div className="container-main flex items-center justify-between h-[72px] px-4 lg:px-8">
+      <div className="container-main flex items-center justify-between h-[76px] md:h-[84px] px-4 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
+        <Link href="/" className="flex items-center gap-2 shrink-0 py-1">
           <Image 
             src="/logo-header.svg" 
             alt={siteName} 
-            width={140} 
-            height={40} 
+            width={200} 
+            height={90} 
             priority
-            className="h-8 w-auto object-contain" 
+            className="h-[52px] sm:h-[58px] md:h-[66px] w-auto object-contain transition-transform duration-200 hover:scale-[1.03]" 
           />
         </Link>
 

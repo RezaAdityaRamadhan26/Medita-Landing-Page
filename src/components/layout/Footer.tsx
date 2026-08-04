@@ -72,13 +72,13 @@ export default async function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-6">
+            <Link href="/" className="inline-block mb-6 group">
               <Image 
-                src="/logo-footer.svg" 
-                alt="Medita Solusi Digital" 
-                width={140} 
-                height={40} 
-                className="h-10 w-auto object-contain" 
+                src="/logo-header.svg" 
+                alt={site_name || "Medita Solusi Digital"} 
+                width={240} 
+                height={110} 
+                className="h-[64px] md:h-[76px] w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]" 
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-md mt-4">

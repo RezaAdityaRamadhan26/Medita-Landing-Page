@@ -15,7 +15,7 @@ export default async function PublicLayout({
   }, {} as Record<string, string>);
 
   return (
-    <div className="pt-[72px] flex flex-col min-h-screen">
+    <div className="pt-[76px] md:pt-[84px] flex flex-col min-h-screen">
       <Navbar siteName={settings.site_name} />
       <main className="flex-grow">{children}</main>
       <CTABanner />
