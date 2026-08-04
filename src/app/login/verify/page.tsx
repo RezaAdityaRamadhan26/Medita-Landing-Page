@@ -93,7 +93,7 @@ function VerifyOtpForm() {
               />
             </div>
             <p className="text-xs text-slate-500 text-center mt-2">
-              💡 Periksa folder Inbox atau Spam pada email Anda. Kode aktif 10 menit.
+              Pastikan cek folder Inbox atau Spam di email kamu ya. Kodenya aktif selama 10 menit.
             </p>
           </div>
 

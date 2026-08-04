@@ -57,31 +57,38 @@ export async function POST(req: NextRequest) {
     if (smtpPass) {
       const htmlContent = `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 28px; border: 3px solid #1A1A1A; border-radius: 16px; background-color: #F4F6E6; color: #1A1A1A;">
-          <h2 style="margin-top: 0; padding-bottom: 12px; border-bottom: 2px solid #1A1A1A; color: #1A1A1A; font-size: 22px; text-align: center;">
-            🔒 Kode Verifikasi Login Admin
+          <h2 style="margin-top: 0; padding-bottom: 12px; border-bottom: 2px solid #1A1A1A; color: #1A1A1A; font-size: 20px; font-weight: 800;">
+            Kode Verifikasi Login Admin
           </h2>
-          <p style="font-size: 16px; line-height: 1.5; margin: 16px 0;">
-            Halo <strong>${user.name || "Admin"}</strong>,
+          <p style="font-size: 15px; line-height: 1.6; margin: 16px 0; color: #1A1A1A;">
+            Halo <strong>${user.name || "Tim Medita"}</strong>,
           </p>
-          <p style="font-size: 15px; line-height: 1.5; margin: 16px 0;">
-            Sesi login admin baru telah dimulai untuk akun <strong>${email}</strong>. Berikut adalah 6 digit kode verifikasi (OTP) Anda:
+          <p style="font-size: 15px; line-height: 1.6; margin: 16px 0; color: #334155;">
+            Ada percobaan login baru ke halaman admin Medita Solusi Digital menggunakan email <strong>${email}</strong>.
+          </p>
+          <p style="font-size: 15px; line-height: 1.6; margin: 16px 0; color: #334155;">
+            Gunakan 6 angka di bawah ini untuk menyelesaikan proses login:
           </p>
           <div style="background-color: #FFFFFF; padding: 20px; border: 3px solid #1A1A1A; border-radius: 12px; margin: 24px 0; text-align: center;">
             <span style="font-size: 36px; font-weight: 900; letter-spacing: 8px; color: #0076FF;">${otpCode}</span>
           </div>
           <p style="font-size: 13px; color: #64748B; line-height: 1.5; margin-top: 16px;">
-            ⏳ Kode ini hanya berlaku selama <strong>10 menit</strong>. Jika Anda tidak merasa melakukan request login ini, abaikan email ini atau segera ubah password admin Anda.
+            Kode ini aktif selama 10 menit ke depan. Kalau kamu tidak merasa melakukan login ini, kamu bisa abaikan email ini atau segera ganti password akunmu untuk keamanan.
+          </p>
+          <p style="font-size: 14px; color: #334155; margin-top: 24px; margin-bottom: 0;">
+            Salam hangat,<br />
+            <strong>Tim Medita Solusi Digital</strong>
           </p>
           <div style="margin-top: 24px; padding-top: 16px; font-size: 11px; text-align: center; color: #64748B; border-top: 1px solid #CBD5E1;">
-            © ${new Date().getFullYear()} Medita Solusi Digital — Admin Security System
+            Email otomatis dari sistem keamanan dashboard Medita Solusi Digital.
           </div>
         </div>
       `;
 
       const mailOptions = {
-        from: `"Medita Security" <${smtpUser}>`,
+        from: `"Medita Solusi Digital" <${smtpUser}>`,
         to: email,
-        subject: `🔒 Kode Verifikasi Login Admin (${otpCode}) - Medita Solusi Digital`,
+        subject: `Kode Verifikasi Login (${otpCode}) - Medita Solusi Digital`,
         html: htmlContent,
       };
 
