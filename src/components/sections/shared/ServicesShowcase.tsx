@@ -25,10 +25,6 @@ export default function ServicesShowcase({
 
   return (
     <section id="services-showcase" className="section-padding bg-transparent relative overflow-hidden">
-      {/* Decorative subtle ambient pattern behind section */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-neo-lime/10 rounded-full blur-3xl -z-10 pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-96 h-96 bg-neo-blue/10 rounded-full blur-3xl -z-10 pointer-events-none" />
-
       <div className="container-main px-4 lg:px-8">
         {/* Section Header - Sized exactly like Why Choose Us (full container alignment) */}
         <motion.div

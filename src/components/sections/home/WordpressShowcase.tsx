@@ -66,7 +66,7 @@ export default function WordpressShowcase() {
 
           {/* WordPress Layered Geometric Illustration with subtle opposing tilt */}
           <motion.div 
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 25 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
