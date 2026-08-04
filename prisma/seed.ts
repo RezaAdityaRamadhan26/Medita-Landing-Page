@@ -5,20 +5,32 @@ import { mockArticles, mockCaseStudies, mockTestimonials, mockLandingPage, mockG
 const prisma = new PrismaClient();
 
 async function main() {
-  // 1. Create Admin User
-  const adminEmail = 'admin@gmail.com';
-  const existingAdmin = await prisma.user.findUnique({ where: { email: adminEmail } });
-  
-  if (!existingAdmin) {
-    const passwordHash = await bcrypt.hash('admin123', 10);
-    await prisma.user.create({
-      data: {
-        email: adminEmail,
-        passwordHash,
-        name: 'Administrator',
-      },
-    });
-    console.log('Created admin user: admin@gmail.com / admin123');
+  // 1. Create Admin Users (with 2FA access)
+  const adminUsers = [
+    { email: 'rezaadityaa26@gmail.com', name: 'Reza Aditya' },
+    { email: 'meditasolusi@gmail.com', name: 'Medita Solusi Admin' },
+    { email: 'admin@gmail.com', name: 'Administrator' },
+  ];
+  const passwordHash = await bcrypt.hash('admin123', 10);
+
+  for (const admin of adminUsers) {
+    const existingAdmin = await prisma.user.findUnique({ where: { email: admin.email } });
+    if (!existingAdmin) {
+      await prisma.user.create({
+        data: {
+          email: admin.email,
+          passwordHash,
+          name: admin.name,
+        },
+      });
+      console.log(`Created admin user: ${admin.email} / admin123`);
+    } else {
+      await prisma.user.update({
+        where: { email: admin.email },
+        data: { passwordHash, name: admin.name },
+      });
+      console.log(`Updated admin user: ${admin.email} / admin123`);
+    }
   }
 
   // 2. Seed Articles

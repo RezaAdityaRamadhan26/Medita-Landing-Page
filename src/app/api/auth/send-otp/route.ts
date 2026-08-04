@@ -1,0 +1,122 @@
+import { NextResponse, NextRequest } from "next/server";
+import prisma from "@/lib/prisma";
+import bcrypt from "bcryptjs";
+import nodemailer from "nodemailer";
+
+export async function POST(req: NextRequest) {
+  try {
+    const { email, password } = await req.json();
+
+    if (!email || !password) {
+      return NextResponse.json(
+        { error: "Mohon isi email dan password Anda." },
+        { status: 400 }
+      );
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "Email atau password salah." },
+        { status: 401 }
+      );
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+    if (!isPasswordValid) {
+      return NextResponse.json(
+        { error: "Email atau password salah." },
+        { status: 401 }
+      );
+    }
+
+    // Generate 6-digit verification code
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // Valid for 10 minutes
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        otpCode,
+        otpExpiresAt,
+      },
+    });
+
+    // Console log for local dev debugging or if SMTP isn't configured
+    console.log("=========================================");
+    console.log(`🔑 [2FA OTP CODE] untuk ${email}: ${otpCode}`);
+    console.log("=========================================");
+
+    // Send via Nodemailer if SMTP is configured
+    const smtpUser = process.env.SMTP_USER || "meditasolusi@gmail.com";
+    const smtpPass = process.env.SMTP_PASS;
+
+    if (smtpPass) {
+      const htmlContent = `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 28px; border: 3px solid #1A1A1A; border-radius: 16px; background-color: #F4F6E6; color: #1A1A1A;">
+          <h2 style="margin-top: 0; padding-bottom: 12px; border-bottom: 2px solid #1A1A1A; color: #1A1A1A; font-size: 22px; text-align: center;">
+            🔒 Kode Verifikasi Login Admin
+          </h2>
+          <p style="font-size: 16px; line-height: 1.5; margin: 16px 0;">
+            Halo <strong>${user.name || "Admin"}</strong>,
+          </p>
+          <p style="font-size: 15px; line-height: 1.5; margin: 16px 0;">
+            Sesi login admin baru telah dimulai untuk akun <strong>${email}</strong>. Berikut adalah 6 digit kode verifikasi (OTP) Anda:
+          </p>
+          <div style="background-color: #FFFFFF; padding: 20px; border: 3px solid #1A1A1A; border-radius: 12px; margin: 24px 0; text-align: center;">
+            <span style="font-size: 36px; font-weight: 900; letter-spacing: 8px; color: #0076FF;">${otpCode}</span>
+          </div>
+          <p style="font-size: 13px; color: #64748B; line-height: 1.5; margin-top: 16px;">
+            ⏳ Kode ini hanya berlaku selama <strong>10 menit</strong>. Jika Anda tidak merasa melakukan request login ini, abaikan email ini atau segera ubah password admin Anda.
+          </p>
+          <div style="margin-top: 24px; padding-top: 16px; font-size: 11px; text-align: center; color: #64748B; border-top: 1px solid #CBD5E1;">
+            © ${new Date().getFullYear()} Medita Solusi Digital — Admin Security System
+          </div>
+        </div>
+      `;
+
+      const mailOptions = {
+        from: `"Medita Security" <${smtpUser}>`,
+        to: email,
+        subject: `🔒 Kode Verifikasi Login Admin (${otpCode}) - Medita Solusi Digital`,
+        html: htmlContent,
+      };
+
+      const primaryTransporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        requireTLS: true,
+        auth: { user: smtpUser, pass: smtpPass },
+        connectionTimeout: 10000,
+      });
+
+      try {
+        await primaryTransporter.sendMail(mailOptions);
+      } catch (primaryErr) {
+        console.warn("Jalur Port 587 gagal, mencoba jalur cadangan Port 465 (SSL)...", primaryErr);
+        const backupTransporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
+          auth: { user: smtpUser, pass: smtpPass },
+          connectionTimeout: 10000,
+        });
+        await backupTransporter.sendMail(mailOptions);
+      }
+    } else {
+      console.log(`[Dev Mode - Tanpa SMTP_PASS di .env] Email simulasi ke ${email}: Kode Anda adalah ${otpCode}`);
+    }
+
+    return NextResponse.json({ success: true, message: "Kode OTP dikirim ke email." }, { status: 200 });
+  } catch (error) {
+    console.error("Error sending OTP:", error);
+    return NextResponse.json(
+      { error: "Terjadi kesalahan server saat memproses login." },
+      { status: 500 }
+    );
+  }
+}

@@ -10,9 +10,10 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "email", placeholder: "admin@medita.com" },
         password: { label: "Password", type: "password" },
+        otp: { label: "OTP Code", type: "text" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.email) {
           return null;
         }
 
@@ -26,20 +27,30 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.passwordHash
-        );
+        // If OTP is provided, verify 6-digit code for 2FA login
+        if (credentials.otp) {
+          if (!user.otpCode || user.otpCode !== credentials.otp) {
+            return null;
+          }
+          if (!user.otpExpiresAt || new Date() > user.otpExpiresAt) {
+            return null;
+          }
 
-        if (!isPasswordValid) {
-          return null;
+          // Clear OTP after successful verification
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { otpCode: null, otpExpiresAt: null },
+          });
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+          };
         }
 
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-        };
+        // We require OTP verification for admin login
+        return null;
       },
     }),
   ],

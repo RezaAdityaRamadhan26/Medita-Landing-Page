@@ -19,17 +19,24 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
-    const res = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const res = await fetch("/api/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (res?.error) {
-      setError("Invalid email or password");
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Email atau password salah.");
+        setLoading(false);
+      } else {
+        router.push(`/login/verify?email=${encodeURIComponent(email)}`);
+      }
+    } catch (err) {
+      setError("Terjadi kendala jaringan atau server. Silakan coba kembali.");
       setLoading(false);
-    } else {
-      router.push("/admin");
     }
   };
 
