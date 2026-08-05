@@ -47,9 +47,9 @@ export default function LoginPage() {
           <Image
             src="/logo-header.svg"
             alt="Medita Logo"
-            width={120}
-            height={40}
-            className="h-10 w-auto"
+            width={180}
+            height={60}
+            className="h-14 md:h-16 w-auto"
           />
         </div>
         
