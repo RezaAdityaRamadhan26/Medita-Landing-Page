@@ -10,6 +10,7 @@ async function main() {
     { email: 'rezaadityaa26@gmail.com', name: 'Reza Aditya' },
     { email: 'meditasolusi@gmail.com', name: 'Medita Solusi Admin' },
     { email: 'admin@gmail.com', name: 'Administrator' },
+    { email: 'fikri.adie04@gmail.com', name: 'Fikri Adie' },
   ];
   const passwordHash = await bcrypt.hash('admin123', 10);
 

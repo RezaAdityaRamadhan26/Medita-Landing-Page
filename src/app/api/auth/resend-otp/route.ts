@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
             Halo <strong>${user.name || "Tim Medita"}</strong>,
           </p>
           <p style="font-size: 15px; line-height: 1.6; margin: 16px 0; color: #334155;">
-            Sesuai permintaan Anda, berikut adalah kode verifikasi OTP yang baru untuk masuk ke halaman admin Medita Solusi Digital (email: <strong>${email}</strong>).
+            Berikut adalah kode verifikasi OTP yang baru untuk masuk ke halaman admin Medita Solusi Digital (email: <strong>${email}</strong>).
           </p>
           <p style="font-size: 15px; line-height: 1.6; margin: 16px 0; color: #334155;">
             Gunakan 6 angka di bawah ini untuk menyelesaikan proses login:
@@ -64,29 +64,32 @@ export async function POST(req: NextRequest) {
             <span style="font-size: 36px; font-weight: 900; letter-spacing: 8px; color: #0076FF;">${otpCode}</span>
           </div>
           <p style="font-size: 13px; color: #64748B; line-height: 1.5; margin-top: 16px;">
-            Kode ini aktif selama 10 menit ke depan. Pastikan memeriksa folder Inbox atau Spam di email Anda.
+            Kode ini akan expired dalam 10 menit, periksa folder spam di email anda.
           </p>
           <p style="font-size: 14px; color: #334155; margin-top: 24px; margin-bottom: 0;">
             Salam hangat,<br />
             <strong>Tim Medita Solusi Digital</strong>
           </p>
           <div style="margin-top: 24px; padding-top: 16px; font-size: 11px; text-align: center; color: #64748B; border-top: 1px solid #CBD5E1;">
-            Email otomatis dari sistem keamanan dashboard Medita Solusi Digital.
+            <strong>[NO-REPLY]</strong> Email ini dibuat secara otomatis oleh sistem keamanan Medita Solusi Digital. Mohon untuk tidak membalas email ini.
           </div>
         </div>
       `;
 
-      const textContent = `Halo ${user.name || "Tim Medita"},\n\nSesuai permintaan Anda, berikut adalah kode verifikasi OTP yang baru untuk masuk ke halaman admin Medita Solusi Digital (email: ${email}).\n\nGunakan 6 angka di bawah ini untuk menyelesaikan proses login:\n\nKODE VERIFIKASI: ${otpCode}\n\nKode ini aktif selama 10 menit ke depan.\n\nSalam hangat,\nTim Medita Solusi Digital`;
+      const textContent = `Halo ${user.name || "Tim Medita"},\n\nBerikut adalah kode verifikasi OTP yang baru untuk masuk ke halaman admin Medita Solusi Digital (email: ${email}).\n\nGunakan 6 angka di bawah ini untuk menyelesaikan proses login:\n\nKODE VERIFIKASI: ${otpCode}\n\nKode ini akan expired dalam 10 menit, periksa folder spam di email anda.\n\nSalam hangat,\nTim Medita Solusi Digital\n\n[NO-REPLY] Email otomatis, mohon tidak membalas email ini.`;
 
       const mailOptions = {
-        from: `"Medita Solusi Digital" <${smtpUser}>`,
-        replyTo: smtpUser,
+        from: `"Medita Security (No-Reply)" <${smtpUser}>`,
+        replyTo: "no-reply@meditasolusi.com",
         to: email,
         subject: `[Kirim Ulang] Kode Verifikasi Login (${otpCode}) - Medita Solusi Digital`,
         text: textContent,
         html: htmlContent,
         headers: {
           "X-Entity-Ref-ID": `medita-resend-otp-${Date.now()}`,
+          "X-Auto-Response-Suppress": "All",
+          "Auto-Submitted": "auto-generated",
+          "Precedence": "bulk",
           "X-Priority": "1",
           "Importance": "high",
           "Date": new Date().toUTCString(),

@@ -44,7 +44,7 @@ function VerifyOtpForm() {
 
       const data = await res.json();
       if (res.ok) {
-        setResendMessage("✅ Kode verifikasi baru telah berhasil dikirim ke email Anda!");
+        setResendMessage("Kode verifikasi baru telah berhasil dikirim ke email Anda");
         setCountdown(60); // Waktu jeda 60 detik sebelum bisa klik lagi
       } else {
         setError(data.error || "Gagal mengirim ulang kode OTP.");
