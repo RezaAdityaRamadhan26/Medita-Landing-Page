@@ -5,11 +5,11 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json();
+    const { email, password, isResend } = await req.json();
 
-    if (!email || !password) {
+    if (!email) {
       return NextResponse.json(
-        { error: "Mohon isi email dan password Anda." },
+        { error: "Mohon masukkan email Anda." },
         { status: 400 }
       );
     }
@@ -20,17 +20,34 @@ export async function POST(req: NextRequest) {
 
     if (!user) {
       return NextResponse.json(
-        { error: "Email atau password salah." },
+        { error: isResend ? "Akun tidak ditemukan." : "Email atau password salah." },
         { status: 401 }
       );
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
-    if (!isPasswordValid) {
-      return NextResponse.json(
-        { error: "Email atau password salah." },
-        { status: 401 }
-      );
+    // If this is an initial login attempt (not a resend request), verify password
+    if (!isResend) {
+      if (!password) {
+        return NextResponse.json(
+          { error: "Mohon isi email dan password Anda." },
+          { status: 400 }
+        );
+      }
+      const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+      if (!isPasswordValid) {
+        return NextResponse.json(
+          { error: "Email atau password salah." },
+          { status: 401 }
+        );
+      }
+    } else {
+      // For resend attempts, verify that an OTP session was previously initiated
+      if (!user.otpCode) {
+        return NextResponse.json(
+          { error: "Sesi login tidak valid. Silakan mulai ulang dari halaman login." },
+          { status: 400 }
+        );
+      }
     }
 
     // Generate 6-digit verification code
