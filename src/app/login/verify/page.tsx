@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
+import { ShieldCheck, ArrowLeft, KeyRound } from "lucide-react";
 
 function VerifyOtpForm() {
   const router = useRouter();
@@ -14,46 +16,6 @@ function VerifyOtpForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Resend OTP code state
-  const [cooldown, setCooldown] = useState(60);
-  const [resendStatus, setResendStatus] = useState<string | null>(null);
-  const [resending, setResending] = useState(false);
-
-  useEffect(() => {
-    if (cooldown > 0) {
-      const timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [cooldown]);
-
-  const handleResend = async () => {
-    if (cooldown > 0 || resending || !email) return;
-    setResending(true);
-    setResendStatus(null);
-    setError("");
-
-    try {
-      const res = await fetch("/api/auth/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, isResend: true }),
-      });
-
-      if (res.ok) {
-        setCooldown(60);
-        setResendStatus("Kode baru telah dikirim ke email Anda.");
-        setOtp("");
-      } else {
-        const data = await res.json();
-        setError(data.error || "Gagal mengirim kode ulang.");
-      }
-    } catch {
-      setError("Terjadi kesalahan jaringan saat meminta kode.");
-    } finally {
-      setResending(false);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!otp || otp.length < 6) {
@@ -63,7 +25,6 @@ function VerifyOtpForm() {
 
     setLoading(true);
     setError("");
-    setResendStatus(null);
 
     const res = await signIn("credentials", {
       email,
@@ -80,86 +41,81 @@ function VerifyOtpForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4 font-sans">
-      <div className="w-full max-w-sm bg-white rounded-2xl border border-slate-200/80 p-7 sm:p-8 shadow-sm text-center">
-        
-        <div className="mb-6">
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
-            Verifikasi Login
-          </h1>
-          <p className="text-sm text-slate-500 mt-2 leading-normal">
-            Kode 6 digit telah dikirim ke<br />
-            <span className="font-medium text-slate-800">{email || "email Anda"}</span>
-          </p>
+    <div className="min-h-screen flex items-center justify-center bg-neo-white p-4">
+      <div className="w-full max-w-md bg-white rounded-card border-4 border-neo-black shadow-neo p-8">
+        <div className="flex justify-center mb-6">
+          <Image
+            src="/logo-header.svg"
+            alt="Medita Logo"
+            width={120}
+            height={40}
+            className="h-10 w-auto"
+          />
         </div>
 
+        <div className="flex justify-center mb-4">
+          <span className="inline-flex items-center gap-1.5 text-xs font-black text-neo-black bg-neo-lime border-2 border-neo-black px-3 py-1 rounded-full shadow-neo-sm">
+            <ShieldCheck size={16} className="text-neo-blue stroke-[2.5]" />
+            <span>2FA SECURITY VALIDATION</span>
+          </span>
+        </div>
+
+        <h1 className="text-2xl font-bold text-neo-black text-center mb-2">
+          Verifikasi Kode OTP
+        </h1>
+
+        <p className="text-slate-600 text-sm text-center leading-relaxed mb-6">
+          Kami telah mengirimkan 6 digit kode keamanan ke email: <br />
+          <strong className="text-neo-black font-extrabold underline">{email || "email Anda"}</strong>
+        </p>
+
         {error && (
-          <div className="mb-5 p-3 bg-red-50 text-red-600 border border-red-100 rounded-lg text-xs font-medium">
+          <div className="mb-4 p-3.5 bg-red-100 border-2 border-neo-black rounded-lg text-red-600 text-sm font-semibold text-center shadow-neo-sm">
             {error}
           </div>
         )}
 
-        {resendStatus && (
-          <div className="mb-5 p-3 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg text-xs font-medium">
-            {resendStatus}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <input
-              type="text"
-              maxLength={6}
-              value={otp}
-              onChange={(e) => {
-                setOtp(e.target.value.replace(/\D/g, ""));
-                if (error) setError("");
-                if (resendStatus) setResendStatus(null);
-              }}
-              placeholder="••••••"
-              className="w-full text-center text-2xl font-mono tracking-[0.4em] px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder-slate-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-slate-900 transition-all"
-              autoFocus
-              required
-            />
+            <label className="block text-sm font-bold text-neo-black mb-2 text-center">
+              Masukkan 6 Angka Kode Verifikasi
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                maxLength={6}
+                value={otp}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+                placeholder="000000"
+                className="w-full text-center text-3xl font-black tracking-[0.6em] px-4 py-3.5 rounded-xl border-3 border-neo-black focus:outline-none focus:ring-4 focus:ring-neo-blue/30 focus:border-neo-blue transition-all bg-slate-50 text-neo-black shadow-inner"
+                autoFocus
+                required
+              />
+            </div>
+            <p className="text-xs text-slate-500 text-center mt-2">
+              Pastikan cek folder Inbox atau Spam di email kamu ya. Kodenya aktif selama 10 menit.
+            </p>
           </div>
 
           <button
             type="submit"
             disabled={loading || otp.length < 6}
-            className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm rounded-xl transition-colors disabled:opacity-50 disabled:pointer-events-none shadow-sm"
+            className="w-full py-3.5 bg-neo-blue text-white font-black text-base rounded-full border-2 border-neo-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            {loading ? "Memverifikasi..." : "Verifikasi"}
+            <KeyRound size={20} className="stroke-[2.5]" />
+            <span>{loading ? "Memverifikasi..." : "Verifikasi & Masuk"}</span>
           </button>
         </form>
 
-        {/* Resend Code with Countdown Cooldown */}
-        <div className="mt-6 text-xs text-slate-500">
-          <span>Belum menerima kode? </span>
-          {cooldown > 0 ? (
-            <span className="text-slate-400 font-medium select-none">
-              Kirim ulang ({cooldown}s)
-            </span>
-          ) : (
-            <button
-              type="button"
-              onClick={handleResend}
-              disabled={resending}
-              className="text-slate-900 font-medium hover:underline cursor-pointer disabled:opacity-50"
-            >
-              {resending ? "Mengirim..." : "Kirim ulang"}
-            </button>
-          )}
-        </div>
-
-        <div className="mt-6 pt-5 border-t border-slate-100">
+        <div className="mt-8 pt-6 border-t-2 border-dashed border-slate-200 text-center">
           <Link
             href="/login"
-            className="text-xs text-slate-500 hover:text-slate-800 transition-colors inline-flex items-center gap-1"
+            className="inline-flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-neo-blue transition-colors"
           >
-            ← Kembali ke halaman login
+            <ArrowLeft size={16} />
+            <span>Kembali ke Halaman Login</span>
           </Link>
         </div>
-
       </div>
     </div>
   );
@@ -167,7 +123,7 @@ function VerifyOtpForm() {
 
 export default function VerifyOtpPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center font-medium text-sm text-slate-500">Memuat halaman...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center font-bold text-neo-black">Memuat Halaman Verifikasi...</div>}>
       <VerifyOtpForm />
     </Suspense>
   );
