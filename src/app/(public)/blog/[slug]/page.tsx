@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Badge from "@/components/ui/Badge";
 import ArticleCard from "@/components/cards/ArticleCard";
 import prisma from "@/lib/prisma";
@@ -142,14 +143,25 @@ export default async function BlogDetailPage({
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
 
-              {/* Article Image Placeholder */}
-              <div className="my-8 rounded-[24px] border-2 border-neo-black shadow-neo overflow-hidden aspect-[16/9] bg-gradient-to-br from-orange-100 via-yellow-100 to-orange-200 flex items-center justify-center">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
-                </svg>
-              </div>
+              {/* Article Cover Image */}
+              {article.cover_image ? (
+                <div className="my-8 rounded-[24px] border-2 border-neo-black shadow-neo overflow-hidden aspect-[16/9] relative bg-slate-50">
+                  <Image
+                    src={article.cover_image}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="my-8 rounded-[24px] border-2 border-neo-black shadow-neo overflow-hidden aspect-[16/9] bg-gradient-to-br from-orange-100 via-yellow-100 to-orange-200 flex items-center justify-center">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21 15 16 10 5 21" />
+                  </svg>
+                </div>
+              )}
 
               {/* Additional Content */}
               <div className="prose prose-lg max-w-none prose-p:text-neo-black/80 prose-p:leading-relaxed prose-a:text-neo-blue bg-white border-2 border-neo-black shadow-neo p-8 md:p-12 rounded-[24px]">

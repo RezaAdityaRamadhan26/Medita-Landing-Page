@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Badge from "@/components/ui/Badge";
 import { Article } from "@/types";
 
@@ -14,14 +15,23 @@ export default function ArticleCardFeatured({ article }: ArticleCardFeaturedProp
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
         {/* Thumbnail */}
-        <div className="relative overflow-hidden aspect-[16/10] md:aspect-auto md:min-h-[280px] lg:border-r-2 lg:border-neo-black border-b-2 lg:border-b-0 border-neo-black">
-          <div className="w-full h-full bg-gradient-to-br from-blue-100 via-blue-200 to-indigo-100 flex items-center justify-center">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <polyline points="21 15 16 10 5 21" />
-            </svg>
-          </div>
+        <div className="relative overflow-hidden aspect-[16/10] md:aspect-auto md:min-h-[280px] lg:border-r-2 lg:border-neo-black border-b-2 lg:border-b-0 border-neo-black bg-slate-50">
+          {article.cover_image ? (
+            <Image
+              src={article.cover_image}
+              alt={article.title}
+              fill
+              className="object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-blue-100 via-blue-200 to-indigo-100 flex items-center justify-center">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
+              </svg>
+            </div>
+          )}
           {/* Play/Arrow Icon */}
           <div className="absolute top-4 right-4 w-10 h-10 bg-neo-lime border-2 border-neo-black rounded-full flex items-center justify-center shadow-neo-sm group-hover:bg-neo-blue group-hover:text-white transition-colors duration-200 text-neo-black">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -24,6 +24,7 @@ export default async function AdminArticlesPage() {
           <table className="w-full text-left border-collapse whitespace-nowrap">
           <thead>
             <tr className="bg-slate-100 border-b-4 border-neo-black text-neo-black font-bold">
+              <th className="p-4 w-20">Image</th>
               <th className="p-4">Title</th>
               <th className="p-4">Category</th>
               <th className="p-4">Date</th>
@@ -33,6 +34,18 @@ export default async function AdminArticlesPage() {
           <tbody>
             {articles.map((article) => (
               <tr key={article.id} className="border-b-2 border-neo-black last:border-b-0 hover:bg-slate-50 transition-colors">
+                <td className="p-4">
+                  {article.coverImage ? (
+                    <div className="w-12 h-12 rounded border border-neo-black overflow-hidden bg-slate-50 flex items-center justify-center">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded border border-neutral-300 bg-slate-100 flex items-center justify-center text-[10px] text-neutral-400 font-bold">
+                      None
+                    </div>
+                  )}
+                </td>
                 <td className="p-4 font-semibold text-neo-black">{article.title}</td>
                 <td className="p-4 text-neutral-muted">{article.category}</td>
                 <td className="p-4 text-neutral-muted">
@@ -51,7 +64,7 @@ export default async function AdminArticlesPage() {
             ))}
             {articles.length === 0 && (
               <tr>
-                <td colSpan={4} className="p-8 text-center text-neutral-muted font-semibold">
+                <td colSpan={5} className="p-8 text-center text-neutral-muted font-semibold">
                   No articles found. Create one!
                 </td>
               </tr>
