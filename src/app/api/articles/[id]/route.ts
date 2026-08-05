@@ -25,11 +25,21 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     }
     const resolvedParams = await params;
     const body = await req.json();
+    const cleanSlug = body.slug
+      ? body.slug
+          .toString()
+          .toLowerCase()
+          .trim()
+          .replace(/\s+/g, "-")
+          .replace(/[^a-z0-9-]/g, "")
+          .replace(/(^-|-$)+/g, "")
+      : undefined;
+
     const article = await prisma.article.update({
       where: { id: parseInt(resolvedParams.id) },
       data: {
         title: body.title,
-        slug: body.slug,
+        slug: cleanSlug,
         coverImage: body.coverImage,
         category: body.category,
         readTime: body.readTime,

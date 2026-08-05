@@ -8,6 +8,48 @@ import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
+async function getArticleBySlugOrId(paramSlug: string) {
+  const decodedSlug = decodeURIComponent(paramSlug).trim();
+
+  // 1. Try exact match with original param
+  let article = await prisma.article.findUnique({ where: { slug: paramSlug } });
+  if (article) return article;
+
+  // 2. Try exact match with decoded and trimmed slug
+  article = await prisma.article.findUnique({ where: { slug: decodedSlug } });
+  if (article) return article;
+
+  // 3. Try case-insensitive match (handles capital letters or spacing variations)
+  article = await prisma.article.findFirst({
+    where: {
+      slug: {
+        equals: decodedSlug,
+        mode: "insensitive",
+      },
+    },
+  });
+  if (article) return article;
+
+  // 4. Try matching by numeric ID if parameter happens to be an integer ID
+  const idNum = parseInt(paramSlug, 10);
+  if (!isNaN(idNum) && String(idNum) === paramSlug.trim()) {
+    article = await prisma.article.findUnique({ where: { id: idNum } });
+    if (article) return article;
+  }
+
+  // 5. Fallback: search substring match in slug or title to recover slightly malformed URL slugs
+  article = await prisma.article.findFirst({
+    where: {
+      OR: [
+        { slug: { contains: decodedSlug, mode: "insensitive" } },
+        { title: { equals: decodedSlug, mode: "insensitive" } },
+      ],
+    },
+  });
+
+  return article;
+}
+
 // Dynamic metadata
 export async function generateMetadata({
   params,
@@ -15,7 +57,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = await prisma.article.findUnique({ where: { slug } });
+  const article = await getArticleBySlugOrId(slug);
   if (!article) return { title: "Article Not Found" };
 
   return {
@@ -53,7 +95,7 @@ export default async function BlogDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const dbArticle = await prisma.article.findUnique({ where: { slug } });
+  const dbArticle = await getArticleBySlugOrId(slug);
 
   if (!dbArticle) {
     notFound();

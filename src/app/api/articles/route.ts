@@ -22,10 +22,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const body = await req.json();
+    const cleanSlug = (body.slug || body.title || "")
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "")
+      .replace(/(^-|-$)+/g, "");
+
     const article = await prisma.article.create({
       data: {
         title: body.title,
-        slug: body.slug,
+        slug: cleanSlug || `article-${Date.now()}`,
         coverImage: body.coverImage,
         category: body.category,
         readTime: body.readTime,
