@@ -47,7 +47,6 @@ async function main() {
           readTime: article.read_time || "",
           content: article.content || "",
           excerpt: article.excerpt || "",
-          // Convert string to Date. mock data uses "2024-04-16" format
           publishedAt: new Date(article.publishedAt || new Date()),
         },
       });

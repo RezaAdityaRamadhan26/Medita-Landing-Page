@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Save } from "lucide-react";
 
+import toast from "react-hot-toast";
+
 interface SettingsFormProps {
   initialData: Record<string, string>;
 }
@@ -24,6 +26,7 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const loadingToast = toast.loading("Menyimpan pengaturan...");
     
     try {
       const res = await fetch("/api/settings", {
@@ -33,13 +36,13 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
       });
       
       if (res.ok) {
-        alert("Settings saved successfully!");
+        toast.success("Pengaturan berhasil disimpan!", { id: loadingToast });
         router.refresh();
       } else {
-        alert("Something went wrong!");
+        toast.error("Gagal menyimpan pengaturan.", { id: loadingToast });
       }
     } catch {
-      alert("Error submitting form");
+      toast.error("Terjadi kesalahan jaringan.", { id: loadingToast });
     } finally {
       setLoading(false);
     }

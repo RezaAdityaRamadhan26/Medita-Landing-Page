@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Service } from "@prisma/client";
 import ImageUploadInput from "@/components/admin/ui/ImageUploadInput";
 
+import toast from "react-hot-toast";
+
 interface ServiceFormProps {
   initialData?: Service | null;
 }
@@ -28,6 +30,7 @@ export default function ServiceForm({ initialData }: ServiceFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const loadingToast = toast.loading("Menyimpan layanan...");
     
     try {
       const url = initialData ? `/api/services/${initialData.id}` : "/api/services";
@@ -40,14 +43,14 @@ export default function ServiceForm({ initialData }: ServiceFormProps) {
       });
 
       if (res.ok) {
-        alert("Service saved successfully!");
+        toast.success("Layanan berhasil disimpan!", { id: loadingToast });
         router.push("/admin/services");
         router.refresh();
       } else {
-        alert("Failed to save service");
+        toast.error("Gagal menyimpan layanan.", { id: loadingToast });
       }
     } catch {
-      alert("Error submitting form");
+      toast.error("Terjadi kesalahan jaringan.", { id: loadingToast });
     } finally {
       setLoading(false);
     }

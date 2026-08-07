@@ -50,11 +50,13 @@ export async function POST(req: NextRequest) {
     console.log(`🔑 [2FA OTP CODE] untuk ${email}: ${otpCode}`);
     console.log("=========================================");
 
-    // Send via Nodemailer if SMTP is configured
-    const smtpUser = process.env.SMTP_USER || "meditasolusi@gmail.com";
-    const smtpPass = process.env.SMTP_PASS;
+    // Send via Resend if API Key is configured
+    const resendApiKey = process.env.RESEND_API_KEY;
 
-    if (smtpPass) {
+    if (resendApiKey) {
+      const { Resend } = await import("resend");
+      const resend = new Resend(resendApiKey);
+
       const htmlContent = `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 28px; border: 3px solid #1A1A1A; border-radius: 16px; background-color: #F4F6E6; color: #1A1A1A;">
           <h2 style="margin-top: 0; padding-bottom: 12px; border-bottom: 2px solid #1A1A1A; color: #1A1A1A; font-size: 20px; font-weight: 800;">
@@ -87,50 +89,22 @@ export async function POST(req: NextRequest) {
 
       const textContent = `Halo ${user.name || "Tim Medita"},\n\nAda percobaan login baru ke halaman admin Medita Solusi Digital menggunakan email ${email}.\n\nGunakan 6 angka di bawah ini untuk menyelesaikan proses login:\n\nKODE VERIFIKASI: ${otpCode}\n\nKode ini aktif selama 10 menit ke depan. Kalau kamu tidak merasa melakukan login ini, kamu bisa abaikan email ini atau segera ganti password akunmu untuk keamanan.\n\nSalam hangat,\nTim Medita Solusi Digital\n\n[NO-REPLY] Email otomatis, mohon tidak membalas email ini.`;
 
-      const mailOptions = {
-        from: `"Medita Security (No-Reply)" <${smtpUser}>`,
-        replyTo: "no-reply@meditasolusi.com",
-        to: email,
-        subject: `Kode Verifikasi Login (${otpCode}) - Medita Solusi Digital`,
+      const { data, error } = await resend.emails.send({
+        from: "Medita Security <onboarding@resend.dev>",
+        to: [email],
+        subject: \`Kode Verifikasi Login (\${otpCode}) - Medita Solusi Digital\`,
         text: textContent,
         html: htmlContent,
-        headers: {
-          "X-Entity-Ref-ID": `medita-otp-${Date.now()}`,
-          "X-Auto-Response-Suppress": "All",
-          "Auto-Submitted": "auto-generated",
-          "Precedence": "bulk",
-          "X-Priority": "1",
-          "Importance": "high",
-          "Date": new Date().toUTCString(),
-        },
-      };
-
-      const primaryTransporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: { user: smtpUser, pass: smtpPass },
-        connectionTimeout: 10000,
       });
 
-      try {
-        const info = await primaryTransporter.sendMail(mailOptions);
-        console.log(`✅ [2FA Email Sent] Sukses dikirim via Port 465 ke ${email} (ID: ${info.messageId})`);
-      } catch (primaryErr) {
-        console.warn("Jalur Port 465 terputus, mencoba jalur cadangan Port 587 (STARTTLS)...", primaryErr);
-        const backupTransporter = nodemailer.createTransport({
-          host: "smtp.gmail.com",
-          port: 587,
-          secure: false,
-          requireTLS: true,
-          auth: { user: smtpUser, pass: smtpPass },
-          connectionTimeout: 10000,
-        });
-        const info = await backupTransporter.sendMail(mailOptions);
-        console.log(`✅ [2FA Email Sent] Sukses dikirim via Port 587 ke ${email} (ID: ${info.messageId})`);
+      if (error) {
+        console.error("Resend Error:", error);
+        throw new Error("Failed to send email via Resend");
       }
+
+      console.log(\`✅ [2FA Email Sent via Resend] Sukses dikirim ke \${email} (ID: \${data?.id})\`);
     } else {
-      console.log(`[Dev Mode - Tanpa SMTP_PASS di .env] Email simulasi ke ${email}: Kode Anda adalah ${otpCode}`);
+      console.log(\`[Dev Mode - Tanpa RESEND_API_KEY di .env] Email simulasi ke \${email}: Kode Anda adalah \${otpCode}\`);
     }
 
     return NextResponse.json({ success: true, message: "Kode OTP dikirim ke email." }, { status: 200 });

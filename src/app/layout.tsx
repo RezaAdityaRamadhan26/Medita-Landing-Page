@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   ],
 };
 
+import { Toaster } from "react-hot-toast";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,6 +33,17 @@ export default function RootLayout({
     <html lang="id" className={outfit.variable}>
       <body className={`${outfit.className} bg-white text-neo-black antialiased`}>
         {children}
+        <Toaster 
+          position="bottom-right" 
+          toastOptions={{
+            className: "border-2 border-neo-black shadow-neo font-bold text-sm",
+            style: {
+              background: "#fff",
+              color: "#1A1A1A",
+              borderRadius: "12px",
+            }
+          }} 
+        />
       </body>
     </html>
   );

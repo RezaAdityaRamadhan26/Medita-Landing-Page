@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { CaseStudy } from "@prisma/client";
 import ImageUploadInput from "@/components/admin/ui/ImageUploadInput";
 
+import toast from "react-hot-toast";
+
 interface CaseStudyFormProps {
   initialData?: CaseStudy | null;
 }
@@ -35,6 +37,7 @@ export default function CaseStudyForm({ initialData }: CaseStudyFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const loadingToast = toast.loading("Menyimpan case study...");
     
     try {
       const url = initialData ? `/api/case-studies/${initialData.id}` : "/api/case-studies";
@@ -47,13 +50,14 @@ export default function CaseStudyForm({ initialData }: CaseStudyFormProps) {
       });
       
       if (res.ok) {
+        toast.success("Case study berhasil disimpan!", { id: loadingToast });
         router.push("/admin/case-studies");
         router.refresh();
       } else {
-        alert("Something went wrong!");
+        toast.error("Gagal menyimpan case study.", { id: loadingToast });
       }
     } catch {
-      alert("Error submitting form");
+      toast.error("Terjadi kesalahan jaringan.", { id: loadingToast });
     } finally {
       setLoading(false);
     }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface DeleteResourceButtonProps {
   id: number | string;
@@ -18,24 +19,47 @@ export default function DeleteResourceButton({
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
 
-  const handleDelete = async () => {
-    if (!confirm(`Are you sure you want to delete this ${resourceName}?`)) return;
-
+  const performDelete = async (toastId: string) => {
+    toast.dismiss(toastId);
     setIsDeleting(true);
+    const loadingToast = toast.loading(`Menghapus ${resourceName}...`);
     try {
       const res = await fetch(`/api/${resource}/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {
+        toast.success(`${resourceName} berhasil dihapus!`, { id: loadingToast });
         router.refresh();
       } else {
-        alert(`Failed to delete ${resourceName}.`);
+        toast.error(`Gagal menghapus ${resourceName}.`, { id: loadingToast });
       }
     } catch {
-      alert(`Error deleting ${resourceName}.`);
+      toast.error(`Error menghapus ${resourceName}.`, { id: loadingToast });
     } finally {
       setIsDeleting(false);
     }
+  };
+
+  const handleDelete = () => {
+    toast((t) => (
+      <div className="flex flex-col gap-3">
+        <p className="font-bold">Apakah Anda yakin ingin menghapus {resourceName} ini?</p>
+        <div className="flex gap-2 justify-end">
+          <button 
+            onClick={() => toast.dismiss(t.id)} 
+            className="px-3 py-1 text-sm bg-slate-100 hover:bg-slate-200 border-2 border-neo-black rounded-md font-bold"
+          >
+            Batal
+          </button>
+          <button 
+            onClick={() => performDelete(t.id)} 
+            className="px-3 py-1 text-sm bg-red-500 text-white hover:bg-red-600 border-2 border-neo-black rounded-md font-bold"
+          >
+            Yakin Hapus
+          </button>
+        </div>
+      </div>
+    ), { duration: 10000 });
   };
 
   return (
