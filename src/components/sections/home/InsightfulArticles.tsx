@@ -1,26 +1,37 @@
 import Button from "@/components/ui/Button";
 import ArticleCard from "@/components/cards/ArticleCard";
-import prisma from "@/lib/prisma";
 import { Article } from "@/types";
 
-export default async function InsightfulArticles() {
-  const dbArticles = await prisma.article.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 3,
-  });
+async function getArticles(): Promise<Article[]> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://127.0.0.1:1337'}/api/articles?populate=*&sort=createdAt:desc&pagination[limit]=3`, {
+      cache: 'no-store'
+    });
+    if (!res.ok) return [];
+    
+    const json = await res.json();
+    return json.data.map((item: any) => {
+      const data = item.attributes || item;
+      return {
+        id: item.documentId || item.id.toString(),
+        title: data.title || "",
+        slug: data.slug || "",
+        cover_image: data.coverImage || "",
+        category: data.category || "",
+        read_time: data.readTime || "",
+        content: data.content || "",
+        publishedAt: data.publishedAt ? data.publishedAt.split('T')[0] : "",
+        excerpt: data.excerpt || "",
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching articles from Strapi:", error);
+    return [];
+  }
+}
 
-  // Map to the shape ArticleCard expects
-  const displayedArticles: Article[] = dbArticles.map(a => ({
-    id: a.id,
-    title: a.title,
-    slug: a.slug,
-    cover_image: a.coverImage || "",
-    category: a.category,
-    read_time: a.readTime,
-    content: a.content,
-    publishedAt: a.publishedAt.toISOString().split('T')[0],
-    excerpt: a.excerpt,
-  }));
+export default async function InsightfulArticles() {
+  const displayedArticles = await getArticles();
 
   return (
     <section className="section-padding bg-transparent">

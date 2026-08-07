@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
 import nodemailer from "nodemailer";
-import prisma from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,20 +19,7 @@ export async function POST(req: NextRequest) {
       ? forwardedFor.split(",")[0].trim()
       : req.headers.get("x-real-ip") || "127.0.0.1";
 
-    // 2. IP Rate Limiting: Maksimal 5 kali pengiriman per IP
-    const submissionCount = await prisma.contactSubmission.count({
-      where: { ipAddress },
-    });
-
-    if (submissionCount >= 5) {
-      return NextResponse.json(
-        {
-          error:
-            "Batas maksimal pengiriman email telah habis. Alamat IP ini sudah mencapai batas 5 kali pengiriman pesan.",
-        },
-        { status: 429 }
-      );
-    }
+    const submissionCount = 0; // Legacy Prisma submission count removed
 
     // 3. Verifikasi Google reCAPTCHA (Jika Kunci Rahasia Dikonfigurasi di .env)
     const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
@@ -133,12 +119,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 5. Simpan catatan pengiriman IP di database setelah berhasil
-    await prisma.contactSubmission.create({
-      data: {
-        ipAddress,
-        email,
-      },
-    });
+    // (Legacy Prisma code removed - emails will still be sent via SMTP)
 
     return NextResponse.json(
       { success: true, message: "Pesan Anda berhasil dikirim ke Medita Solusi Digital!" },

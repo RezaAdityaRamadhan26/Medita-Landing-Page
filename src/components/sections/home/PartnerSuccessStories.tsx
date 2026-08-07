@@ -1,23 +1,36 @@
 import Button from "@/components/ui/Button";
 import CaseStudyCard from "@/components/cards/CaseStudyCard";
-import prisma from "@/lib/prisma";
 import { CaseStudy } from "@/types";
 
-export default async function PartnerSuccessStories() {
-  const dbCaseStudies = await prisma.caseStudy.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 3,
-  });
+async function getCaseStudies(): Promise<CaseStudy[]> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://127.0.0.1:1337'}/api/case-studies?populate=*&sort=createdAt:desc&pagination[limit]=3`, {
+      cache: 'no-store'
+    });
+    if (!res.ok) return [];
+    
+    const json = await res.json();
+    return json.data.map((item: any) => {
+      // Handle Strapi v4 (attributes wrapper) and Strapi v5 (flat structure)
+      const data = item.attributes || item;
+      return {
+        id: item.documentId || item.id.toString(),
+        title: data.title || "",
+        slug: data.slug || "",
+        category_tag: data.categoryTag || "",
+        summary: data.summary || "",
+        thumbnail: data.thumbnail || "",
+        link: data.link || undefined,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching case studies from Strapi:", error);
+    return [];
+  }
+}
 
-  const displayedCaseStudies: CaseStudy[] = dbCaseStudies.map(cs => ({
-    id: cs.id,
-    title: cs.title,
-    slug: cs.slug,
-    category_tag: cs.categoryTag,
-    summary: cs.summary,
-    thumbnail: cs.thumbnail || "",
-    link: cs.link || undefined,
-  }));
+export default async function PartnerSuccessStories() {
+  const displayedCaseStudies = await getCaseStudies();
 
   return (
     <section className="section-padding bg-transparent">
