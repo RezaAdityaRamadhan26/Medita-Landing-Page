@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       const { data, error } = await resend.emails.send({
         from: "Medita Security <onboarding@resend.dev>",
         to: [email],
-        subject: \`Kode Verifikasi Login (\${otpCode}) - Medita Solusi Digital\`,
+        subject: `Kode Verifikasi Login (${otpCode}) - Medita Solusi Digital`,
         text: textContent,
         html: htmlContent,
       });
@@ -102,9 +102,9 @@ export async function POST(req: NextRequest) {
         throw new Error("Failed to send email via Resend");
       }
 
-      console.log(\`✅ [2FA Email Sent via Resend] Sukses dikirim ke \${email} (ID: \${data?.id})\`);
+      console.log(`✅ [2FA Email Sent via Resend] Sukses dikirim ke ${email} (ID: ${data?.id})`);
     } else {
-      console.log(\`[Dev Mode - Tanpa RESEND_API_KEY di .env] Email simulasi ke \${email}: Kode Anda adalah \${otpCode}\`);
+      console.log(`[Dev Mode - Tanpa RESEND_API_KEY di .env] Email simulasi ke ${email}: Kode Anda adalah ${otpCode}`);
     }
 
     return NextResponse.json({ success: true, message: "Kode OTP dikirim ke email." }, { status: 200 });
